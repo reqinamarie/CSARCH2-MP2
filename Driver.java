@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Driver {
-	public static void main (String[] args) {
+	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Enter num of blocks in mm: ");
 		int numblock = sc.nextInt();
@@ -10,6 +10,6 @@ public class Driver {
 
 		Memory memory = new Memory(numblock, accesstime);
 
-		System.out.print("blocks in mm: " + memory.getBlockSize());
+		System.out.print("blocks in mm: " + memory.getMMSize());
 	}
 }
