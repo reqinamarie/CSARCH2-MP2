@@ -41,7 +41,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefWidth="500.0" spacing="15.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Simulator.SeqInputController">
+<VBox fx:id="vbWindow" onMouseMoved="#isValid" onMousePressed="#isValid" prefWidth="500.0" spacing="15.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Simulator.SeqInputController">
   <children>
       <Group>
          <children>

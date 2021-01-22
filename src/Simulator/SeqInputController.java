@@ -1,8 +1,11 @@
 package Simulator;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -12,10 +15,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.w3c.dom.Text;
 
+import java.awt.event.FocusListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -29,10 +36,8 @@ public class SeqInputController {
     @FXML
     public TextField txtNumGroups;
     public VBox vbSequences;
-    public VBox vbSeqGroup1;
+    public VBox vbWindow;
 
-    public TextField txtSeq1;
-    public TextField txtRep1;
     public ArrayList<TextField> textFields;
 
     public Button btnSimulate;
@@ -40,10 +45,13 @@ public class SeqInputController {
 
     public ArrayList<GroupController> gControllers;
 
-
     @FXML
     public void initialize() throws NullPointerException {
         gControllers = new ArrayList<>();
+
+        vbSequences.focusedProperty().addListener(returnChangeListener());
+        txtNumGroups.focusedProperty().addListener(returnChangeListener());
+        btnSimulate.focusedProperty().addListener(returnChangeListener());
 
         /*
         textFields = new ArrayList<TextField>();
@@ -107,5 +115,28 @@ public class SeqInputController {
             g.getGroupSeq;
         }
          */
+    }
+
+    public void isValid(){
+        if (gControllers.size() == 0)
+            return;
+
+        for (GroupController g: gControllers) {
+            if (!g.isValid()) {
+                btnSimulate.setDisable(true);
+                return;
+            }
+        }
+
+        btnSimulate.setDisable(false);
+    }
+
+    private ChangeListener<Boolean> returnChangeListener() {
+        return new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                isValid();
+            }
+        };
     }
 }

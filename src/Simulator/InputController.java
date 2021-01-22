@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 public class InputController {
 
     public ComboBox<String> cmbMMType;
@@ -64,14 +66,26 @@ public class InputController {
 
     @FXML
     public void checkIfEnableNext() {
+
         for (TextField tf: textFields) {
-            if (tf.getText().isEmpty()) {
+            if (tf.getText().isEmpty() || !isValid(tf, tf.getText())) {
                 btnNextPage.setDisable(true);
                 return;
             }
         }
 
         btnNextPage.setDisable(false);
+    }
+
+    private boolean isValid(TextField field, String text) {
+        try {
+            parseInt(text);
+            field.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
+            return true;
+        } catch (Exception e) {
+            field.setStyle("-fx-text-box-border: red;");
+            return false;
+        }
     }
 
 
