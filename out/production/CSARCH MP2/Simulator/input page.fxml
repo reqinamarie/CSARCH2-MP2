@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="350.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Simulator.InputController">
+   <children>
+      <Group>
+         <children>
+            <Label id="blockSize" layoutY="4.0" text="Block Size" />
+            <TextField id="txtBlockSize" fx:id="txtBlockSize" layoutX="121.0" onAction="#checkIfEnableNext" />
+            <Label layoutX="289.0" layoutY="4.0" text="words" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Group>
+      <Group>
+         <children>
+            <Label id="blockSize" layoutY="4.0" text="Main Memory Size" />
+            <TextField id="txtMMSize" fx:id="txtMMSize" layoutX="121.0" />
+            <ComboBox id="cmbMMType" fx:id="cmbMMType" layoutX="289.0" prefWidth="150.0" visibleRowCount="2" />
+            <Label id="blockSize" layoutY="38.0" text="MM Access Time" />
+            <TextField id="txtMMTime" fx:id="txtMMTime" layoutX="121.0" layoutY="34.0" />
+            <Label layoutX="289.0" layoutY="38.0" text="ns" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Group>
+      <Group>
+         <children>
+            <Label id="blockSize" layoutY="4.0" text="Cache Memory Size" />
+            <TextField id="txtCacheSize" fx:id="txtCacheSize" layoutX="121.0" />
+            <ComboBox id="cmbCacheType" fx:id="cmbCacheType" layoutX="289.0" prefWidth="150.0" visibleRowCount="2" />
+            <Label id="blockSize" layoutY="38.0" text="Cache Access Time" />
+            <TextField id="txtCacheTime" fx:id="txtCacheTime" layoutX="121.0" layoutY="34.0" />
+            <Label layoutX="289.0" layoutY="38.0" text="ns" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Group>
+      <ComboBox fx:id="cmbLoad" prefWidth="150.0" />
+      <Region VBox.vgrow="ALWAYS" />
+      <Button fx:id="btnNextPage" disable="true" mnemonicParsing="false" onAction="#nextButtonClicked" text="Next">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Button>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</VBox>
