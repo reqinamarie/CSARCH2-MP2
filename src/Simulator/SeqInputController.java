@@ -64,7 +64,7 @@ public class SeqInputController {
             int nGroups = parseInt((txtNumGroups.getText())),
                 currSize = children.size();
 
-            for (var i = currSize; i < nGroups; i++) {
+            for (int i = currSize; i < nGroups; i++) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("group sequence.fxml"));
                 Parent root = loader.load();
 
@@ -72,7 +72,7 @@ public class SeqInputController {
                 children.add(root);
             }
 
-            for (var i = currSize; i > nGroups; i--) {
+            for (int i = currSize; i > nGroups; i--) {
                 children.remove(i-1);
                 gControllers.remove(i-1);
             }

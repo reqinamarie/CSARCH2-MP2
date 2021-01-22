@@ -13,6 +13,7 @@
       <element id="extracted-dir" path="$PATH_TO_FX$/javafx.controls.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PATH_TO_FX$/javafx.graphics.jar" path-in-jar="/" />
       <element id="library" level="project" name="JavaFX lib" />
+      <element id="module-source" name="CSARCH MP2" />
     </root>
   </artifact>
 </component>
