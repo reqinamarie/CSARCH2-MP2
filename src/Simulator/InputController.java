@@ -55,7 +55,14 @@ public class InputController {
 
     @FXML
     public void nextButtonClicked(ActionEvent event) throws IOException {
-        Parent seqInputParent = FXMLLoader.load(getClass().getResource("sequence input.fxml"));
+        createCache(); createMemory();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("sequence input.fxml"));
+        Parent seqInputParent = loader.load();
+
+        SeqInputController siController = loader.getController();
+        siController.initData(createCache(), createMemory(), cmbLoad.getValue());
+
         Scene seqInputScene = new Scene(seqInputParent);
 
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -92,5 +99,32 @@ public class InputController {
         }
     }
 
+    private Memory createMemory() {
+        if (btnNextPage.isDisabled())
+            return null;
+
+        int mmSize = parseInt(txtMMSize.getText()),
+            blockSize = parseInt(txtBlockSize.getText());
+
+        if (cmbMMType.getValue() == "Blocks") {
+            return new Memory(mmSize, parseInt(txtMMTime.getText()));
+        } else {
+            return new Memory(mmSize, blockSize, parseInt(txtMMTime.getText()));
+        }
+    }
+
+    private Cache createCache() {
+        if (btnNextPage.isDisabled())
+            return null;
+
+        int cacheSize = parseInt(txtCacheSize.getText()),
+            blockSize = parseInt(txtBlockSize.getText());
+
+        if (cmbCacheType.getValue() == "Blocks") {
+            return new Cache(cacheSize, blockSize, cacheSize, parseInt(txtCacheTime.getText()));
+        } else {
+            return new Cache(cacheSize, blockSize, parseInt(txtCacheTime.getText()));
+        }
+    }
 
 }

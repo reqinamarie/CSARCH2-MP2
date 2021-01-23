@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -45,6 +44,10 @@ public class SeqInputController {
     public ArrayList<GroupController> gControllers;
     public ComboBox cmbSeqType;
 
+    private Cache cache;
+    private Memory memory;
+    private String readType;
+
     @FXML
     public void initialize() throws NullPointerException {
         gControllers = new ArrayList<>();
@@ -62,6 +65,12 @@ public class SeqInputController {
          * newVal) -> checkIfEnableSimulate()); textFields.add(txtSeq1);
          * textFields.add(txtRep1); } catch (Exception e) {}
          */
+    }
+
+    public void initData(Cache c, Memory m, String r) {
+        this.cache = c;
+        this.memory = m;
+        this.readType = r;
     }
 
     @FXML
@@ -107,7 +116,7 @@ public class SeqInputController {
 
     public ArrayList<Group> getAllGroups() {
 
-        ArrayList<Group> allGroups = new ArrayList<Group>();
+        ArrayList<Simulator.Group> allGroups = new ArrayList<Group>();
         for (GroupController g : gControllers) {
             allGroups.add(g.getGroup());
         }

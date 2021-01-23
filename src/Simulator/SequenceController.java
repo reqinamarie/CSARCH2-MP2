@@ -40,7 +40,7 @@ public class SequenceController {
     }
 
     public void checkValidSeq() {
-        Pattern p = Pattern.compile("([\\dA-F]+||([\\dA-F]+-[\\dA-F]+))(,( )*([\\dA-F]+||([\\dA-F]+-[\\dA-F]+)))*");
+        Pattern p = Pattern.compile("(\\d+||(\\d+-\\d+))(,( )*(\\d+||(\\d+-\\d+)))*");
         Matcher m = p.matcher(txtSeq.getText());
         Boolean b = m.matches();
 

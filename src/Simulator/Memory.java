@@ -1,4 +1,5 @@
 package Simulator;
+import java.util.*;
 
 public class Memory {
     private int num_blocks;
