@@ -110,7 +110,7 @@ public class SeqInputController {
         btnSimulate.setDisable(false);
     }
 
-    public void getAllSequences() {
+    public ArrayList<Sequence> getAllSequences() {
         //  kayo na bahala lolll
 
         /*
@@ -118,6 +118,11 @@ public class SeqInputController {
             g.getGroupSeq;
         }
          */
+        ArrayList<Sequence> allSeqs = new ArrayList<Sequence>();
+        for (GroupController g: gControllers) {
+            allSeqs.add(g.getGroup()); 
+
+        return allSeqs;
     }
 
     public void isValid(){
