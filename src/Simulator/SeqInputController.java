@@ -162,4 +162,44 @@ public class SeqInputController {
             e.printStackTrace();
         }
     }
+
+    public float getMissPenalty() {
+        float missPenalty;
+
+        if (this.readType.equals("Load Through"))
+            missPenalty = this.cache.getAccessTime() + this.memory.getAccessTime();
+        else
+            missPenalty = (2 * this.cache.getAccessTime()) + (this.memory.getAccessTime() * this.cache.getBlockSize());
+
+        return missPenalty;
+    }
+
+    public float getAveAccessTime() {
+        float aveAccessTime;
+        int hits = this.cache.getHits();
+        int miss = this.cache.getMiss();
+
+        aveAccessTime = ((hits/(hits*miss))*this.cache.getAccessTime()) + ((miss/(hits+miss))*self.getMissPenalty());
+
+        return aveAccessTime;
+    }
+
+    public float getTotalAccessTime() {
+        float totalAccessTime;
+        int hits = this.cache.getHits();
+        int miss = this.cache.getMiss();
+
+        if (this.readType.equals("Load Through")) {
+            totalAccessTime =   (hits * this.cache.getBlockSize() * this.cache.getAccessTime()) + 
+                                (miss * this.cache.getBlockSize() * this.memory.getAccessTime()) +
+                                (miss * this.cache.getAccessTime());
+        }
+        else {
+            totalAccessTime = (hits * this.cache.getBlockSize() * this.cache.getAccessTime()) + 
+                                (miss * this.cache.getBlockSize() * (this.cache.getAccessTime() + this.memory.getAccessTime())) +
+                                (miss * this.cache.getAccessTime());
+        }
+
+        return totalAccessTime;        
+    }
 }
