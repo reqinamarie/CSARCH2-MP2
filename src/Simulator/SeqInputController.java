@@ -67,6 +67,7 @@ public class SeqInputController {
 
                 gControllers.add(loader.getController());
                 ((GroupController) loader.getController()).initData(memory.getMMSize());
+                ((GroupController) loader.getController()).setInputType((String) cmbSeqType.getValue());
                 children.add(root);
             }
 
@@ -208,5 +209,11 @@ public class SeqInputController {
         }
 
         return totalAccessTime;        
+    }
+
+    public void inputTypeChanged() {
+        for (GroupController g: gControllers) {
+            g.setInputType((String) cmbSeqType.getValue());
+        }
     }
 }

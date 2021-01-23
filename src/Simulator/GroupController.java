@@ -22,6 +22,7 @@ public class GroupController {
 
     public boolean validRep = true;
     public int nMMBlocks;
+    public String inputType;
 
     @FXML
     public void initialize() {
@@ -49,6 +50,7 @@ public class GroupController {
         sControllers.add(loader.getController());
         btnRemoveSeq.setDisable(false);
         ((SequenceController) loader.getController()).initData(nMMBlocks);
+        ((SequenceController) loader.getController()).setInputType(inputType);
 
         int index = vbSeqGroup.getChildren().size() - 1;
         javafx.scene.Group parentSeq = ((javafx.scene.Group) vbSeqGroup.getChildren().get(index));
@@ -121,6 +123,14 @@ public class GroupController {
         } catch (Exception e) {
             txtGroupRep.setStyle("-fx-text-box-border: red;");
             validRep = false;
+        }
+    }
+
+    public void setInputType(String type) {
+        this.inputType = type;
+
+        for (SequenceController s: sControllers) {
+            s.setInputType(type);
         }
     }
 }

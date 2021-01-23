@@ -15,6 +15,7 @@ public class SequenceController {
     public TextField txtSeq, txtRep;
     public boolean repValid = true, seqValid = false;
     public int nMMBlocks;
+    public String inputType;
 
     @FXML
     public void initialize() {
@@ -101,5 +102,9 @@ public class SequenceController {
 
         seq = new Sequence(data, loops);
         return seq;
+    }
+
+    public void setInputType(String type) {
+        this.inputType = type;
     }
 }
