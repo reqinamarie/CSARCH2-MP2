@@ -74,7 +74,7 @@ public class GroupController {
 
     public boolean isValid() {
         for (SequenceController s: sControllers) {
-            if (!s.isValid)
+            if (!s.isValid())
                 return false;
         }
 
