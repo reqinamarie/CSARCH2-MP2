@@ -9,6 +9,8 @@ public class Cache {
     private int num_blocks;
     private float access_time;
     private int mru;
+    private int hits;
+    private int miss;
 
     public Cache(int size, int block_size, int num_blocks, float access_time) {
         this.contents = new ArrayList<String>(num_blocks);
@@ -17,6 +19,8 @@ public class Cache {
         this.num_blocks = num_blocks;
         this.access_time = access_time;
         this.mru = 0;
+        this.hits = 0;
+        this.miss = 0;
     } // constructor if cache memory size given is in blocks (size == num_blocks)
 
     public Cache(int size, int block_size, float access_time) {
@@ -25,6 +29,8 @@ public class Cache {
         this.num_blocks = size / block_size;
         this.access_time = access_time;
         this.mru = 0;
+        this.hits = 0;
+        this.miss = 0;
         this.contents = new ArrayList<String>(this.num_blocks);
     }
 
@@ -48,6 +54,14 @@ public class Cache {
         return mru;
     }
 
+    public int getMiss() {
+        return miss;
+    }
+
+    public int getHits() {
+        return hits;
+    }
+
     public boolean isFull() {
         if (contents.size() == num_blocks)
             return true;
@@ -56,6 +70,11 @@ public class Cache {
     }
 
     public int find(String data) {
+        if (contents.indexOf(data) == -1)
+            miss++;
+        else
+            hits++;
+
         return contents.indexOf(data);
     }
 

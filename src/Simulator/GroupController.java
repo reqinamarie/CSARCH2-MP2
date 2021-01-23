@@ -27,7 +27,7 @@ public class GroupController {
     public boolean validRep = true;
 
     @FXML
-    public void initialize() throws IOException{
+    public void initialize() throws IOException {
         sControllers = new ArrayList<>();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sequence.fxml"));
@@ -49,6 +49,22 @@ public class GroupController {
 
         int index = vbSeqGroup.getChildren().size() - 1;
         Group parentSeq = ((Group) vbSeqGroup.getChildren().get(index));
+
+        /*
+         * ((TextField)
+         * (parentSeq.getChildren().get(1))).textProperty().addListener((obs, oldVal,
+         * newVal) -> checkIfEnableSimulate()); ((TextField)
+         * (parentSeq.getChildren().get(2))).textProperty().addListener((obs, oldVal,
+         * newVal) -> checkIfEnableSimulate());
+         * 
+         * 
+         * //btnSimulate.setDisable(true); textFields.add((TextField)
+         * parentSeq.getChildren().get(1)); textFields.add((TextField)
+         * parentSeq.getChildren().get(2));
+         * 
+         * System.out.println(textFields.size());
+         * 
+         */
     }
 
     @FXML
@@ -61,8 +77,8 @@ public class GroupController {
             btnRemoveSeq.setDisable(true);
         }
 
-        vbSeqGroup.getChildren().remove(nSeq-1);
-        sControllers.remove(nSeq-1);
+        vbSeqGroup.getChildren().remove(nSeq - 1);
+        sControllers.remove(nSeq - 1);
     }
 
     public boolean isValid() {
@@ -73,20 +89,20 @@ public class GroupController {
             if (!s.isValid())
                 return false;
         }
-
         return true;
     }
 
-    public String getGroupSeq() {
-        // make object dito;  change na lang din yung return type
+    public Group getGroup() {
 
-        //Array
-        /*
-        for (SequenceController s: sControllers) {
-            s.getSequence()  // add niyo na lang sa array ??  idk di ko alam kung ano objects niyo
+        Sequence[] seqGroup;
+        int count = 0;
+
+        for (SequenceController s : sControllers) {
+            seqGroup[count] = s.getSequence();
+            count++;
         }
-        */
-        return null;
+
+        return new Group(seqGroup, parseInt(txtGroupRep.getText()));
     }
 
     private void isGroupRepValid() {

@@ -3,15 +3,15 @@ package Simulator;
 import java.util.*;
 
 public class Sequence {
-    private ArrayList<String> data = new ArrayList<String>();
+    private ArrayList<Integer> data = new ArrayList<Integer>();
     private int loops;
 
-    public Sequence(ArrayList<String> data, int loops) {
+    public Sequence(ArrayList<Integer> data, int loops) {
         this.data = data;
         this.loops = loops;
     }
 
-    public ArrayList<String> getData() {
+    public ArrayList<Integer> getData() {
         return data;
     }
 
