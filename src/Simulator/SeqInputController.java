@@ -142,4 +142,20 @@ public class SeqInputController {
             }
         };
     }
+
+    public void goToNext() throws IOException{
+        try {
+
+            Parent seqInputParent = FXMLLoader.load(getClass().getResource("output page.fxml"));
+            Scene seqInputScene = new Scene(seqInputParent);
+
+            Stage window = (Stage) (vbWindow).getScene().getWindow();
+            window.setScene(seqInputScene);
+            window.show();
+            window.sizeToScene();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
