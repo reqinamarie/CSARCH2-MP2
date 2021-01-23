@@ -75,7 +75,7 @@ public class SequenceController {
     public Sequence getSequence() {
         Sequence seq;
         int loops = parseInt(txtRep.getText());
-        String[] txtSequence = txtSeq.getText().split(", ");
+        String[] txtSequence = txtSeq.getText().split(",");
         Boolean blocks = (inputType.equals("Blocks"));
 
         // System.out.println(txtSeq.getText().split(","));
@@ -87,6 +87,7 @@ public class SequenceController {
         ArrayList<Integer> data = new ArrayList<Integer>();
         // Processing
         for (int i = 0; stringData.size() > i; i++) {
+            stringData.set(i, stringData.get(i).trim());
             if (stringData.get(i).contains("-")) {
                 String[] a = stringData.get(i).split("-");
                 List<Integer> range = IntStream.rangeClosed(parseInt(a[0]), (parseInt(a[1]))).boxed()
