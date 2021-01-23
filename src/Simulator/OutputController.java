@@ -1,13 +1,9 @@
 package Simulator;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class OutputController {
     public Label lblCacheHit, lblCacheMiss, lblMissPenalty, lblAvgTime, lblTotalTime;

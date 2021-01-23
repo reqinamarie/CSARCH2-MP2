@@ -3,9 +3,7 @@ package Simulator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,18 +12,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
-
-import java.awt.event.FocusListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionAdapter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -57,14 +47,6 @@ public class SeqInputController {
         vbSequences.focusedProperty().addListener(returnChangeListener());
         txtNumGroups.focusedProperty().addListener(returnChangeListener());
         btnSimulate.focusedProperty().addListener(returnChangeListener());
-
-        /*
-         * textFields = new ArrayList<TextField>(); try { btnAddSeq1.fire();
-         * txtSeq1.textProperty().addListener((obs, oldVal, newVal) ->
-         * checkIfEnableSimulate()); txtRep1.textProperty().addListener((obs, oldVal,
-         * newVal) -> checkIfEnableSimulate()); textFields.add(txtSeq1);
-         * textFields.add(txtRep1); } catch (Exception e) {}
-         */
     }
 
     public void initData(Cache c, Memory m, String r) {

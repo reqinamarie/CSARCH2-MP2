@@ -2,8 +2,6 @@ package Simulator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import org.w3c.dom.Text;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
