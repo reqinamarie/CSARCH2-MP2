@@ -66,6 +66,7 @@ public class SeqInputController {
                 Parent root = loader.load();
 
                 gControllers.add(loader.getController());
+                ((GroupController) loader.getController()).initData(memory.getMMSize());
                 children.add(root);
             }
 
@@ -151,7 +152,7 @@ public class SeqInputController {
 
     public void goToNext() throws IOException {
         try {
-
+            simulate();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("output page.fxml"));
             Parent seqInputParent = loader.load();
             Scene seqInputScene = new Scene(seqInputParent);
@@ -185,7 +186,7 @@ public class SeqInputController {
         int hits = this.cache.getHits();
         int miss = this.cache.getMiss();
 
-        aveAccessTime = ((hits/(hits*miss))*this.cache.getAccessTime()) + ((miss/(hits+miss))*getMissPenalty());
+        aveAccessTime = ((hits/(hits+miss))*this.cache.getAccessTime()) + ((miss/(hits+miss))*getMissPenalty());
 
         return aveAccessTime;
     }

@@ -21,17 +21,23 @@ public class GroupController {
     public TextField txtGroupRep;
 
     public boolean validRep = true;
+    public int nMMBlocks;
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() {
         sControllers = new ArrayList<>();
+        txtGroupRep.textProperty().addListener((obs, newV, oldV) -> isGroupRepValid());
+    }
+
+    public void initData(int n) throws IOException {
+        this.nMMBlocks = n;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sequence.fxml"));
         Parent sequence = loader.load();
+        ((SequenceController) loader.getController()).initData(nMMBlocks);
 
         vbSeqGroup.getChildren().add(sequence);
         sControllers.add(loader.getController());
-        txtGroupRep.textProperty().addListener((obs, newV, oldV) -> isGroupRepValid());
     }
 
     @FXML
@@ -42,6 +48,7 @@ public class GroupController {
         vbSeqGroup.getChildren().add(sequence);
         sControllers.add(loader.getController());
         btnRemoveSeq.setDisable(false);
+        ((SequenceController) loader.getController()).initData(nMMBlocks);
 
         int index = vbSeqGroup.getChildren().size() - 1;
         javafx.scene.Group parentSeq = ((javafx.scene.Group) vbSeqGroup.getChildren().get(index));

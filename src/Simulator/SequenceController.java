@@ -14,11 +14,16 @@ import java.util.*;
 public class SequenceController {
     public TextField txtSeq, txtRep;
     public boolean repValid = true, seqValid = false;
+    public int nMMBlocks;
 
     @FXML
     public void initialize() {
         txtSeq.textProperty().addListener((obs, oldT, newT) -> checkValidSeq());
         txtRep.textProperty().addListener((obs, oldT, newT) -> checkValid());
+    }
+
+    public void initData(int n) {
+        this.nMMBlocks = n;
     }
 
     public void checkValid() {
@@ -42,7 +47,13 @@ public class SequenceController {
         Matcher m = p.matcher(txtSeq.getText());
         Boolean b = m.matches();
 
-        if (!b) {
+        if (!b || txtSeq.getText().isEmpty()) {
+            txtSeq.setStyle("-fx-text-box-border: red;");
+            seqValid = false;
+            return;
+        }
+
+        if (getSequence() == null) {
             txtSeq.setStyle("-fx-text-box-border: red;");
             seqValid = false;
             return;
@@ -83,10 +94,9 @@ public class SequenceController {
             else {
                 data.add(parseInt(stringData.get(i)));
             }
-        }
 
-        for (int i = 0; i < data.size(); i++) {
-            System.out.println(data.get(i));
+            if (data.get(i) > nMMBlocks)
+                return null;
         }
 
         seq = new Sequence(data, loops);
