@@ -57,7 +57,12 @@ public class InputController {
     public void nextButtonClicked(ActionEvent event) throws IOException {
         createCache(); createMemory();
 
-        Parent seqInputParent = FXMLLoader.load(getClass().getResource("sequence input.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("sequence input.fxml"));
+        Parent seqInputParent = loader.load();
+
+        SeqInputController siController = loader.getController();
+        siController.initData(createCache(), createMemory(), cmbLoad.getValue());
+
         Scene seqInputScene = new Scene(seqInputParent);
 
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -98,29 +103,28 @@ public class InputController {
         if (btnNextPage.isDisabled())
             return null;
 
-        int nWords = parseInt(txtMMSize.getText()),
+        int mmSize = parseInt(txtMMSize.getText()),
             blockSize = parseInt(txtBlockSize.getText());
 
         if (cmbMMType.getValue() == "Blocks") {
-            nWords = nWords * blockSize;
+            return new Memory(mmSize, parseInt(txtMMTime.getText()));
+        } else {
+            return new Memory(mmSize, blockSize, parseInt(txtMMTime.getText()));
         }
-
-        return new Memory(nWords, blockSize, parseInt(txtMMTime.getText()));
     }
 
     private Cache createCache() {
         if (btnNextPage.isDisabled())
             return null;
 
-        int nBlocks = parseInt(txtCacheSize.getText()),
+        int cacheSize = parseInt(txtCacheSize.getText()),
             blockSize = parseInt(txtBlockSize.getText());
 
-
-        if (cmbCacheType.getValue() == "Words") {
-            nBlocks = nBlocks / blockSize;
+        if (cmbCacheType.getValue() == "Blocks") {
+            return new Cache(cacheSize, blockSize, cacheSize, parseInt(txtCacheTime.getText()));
+        } else {
+            return new Cache(cacheSize, blockSize, parseInt(txtCacheTime.getText()));
         }
-
-        return new Cache(parseInt(txtCacheSize.getText()), blockSize, nBlocks, parseInt(txtCacheTime.getText()));
     }
 
 }
