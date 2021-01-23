@@ -92,15 +92,17 @@ public class GroupController {
         return true;
     }
 
-    public String getGroupSeq() {
-        // make object dito; change na lang din yung return type
+    public Group getGroup() {
 
-        // Array
-        /*
-         * for (SequenceController s: sControllers) { s.getSequence() // add niyo na
-         * lang sa array ?? idk di ko alam kung ano objects niyo }
-         */
-        return null;
+        Sequence[] seqGroup;
+        int count = 0;
+
+        for (SequenceController s : sControllers) {
+            seqGroup[count] = s.getSequence();
+            count++;
+        }
+
+        return new Group(seqGroup, parseInt(txtGroupRep.getText()));
     }
 
     private void isGroupRepValid() {
