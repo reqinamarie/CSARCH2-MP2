@@ -44,10 +44,13 @@ public class SeqInputController {
     public Button btnAddSeq1;
 
     public ArrayList<GroupController> gControllers;
+    public ComboBox cmbSeqType;
 
     @FXML
     public void initialize() throws NullPointerException {
         gControllers = new ArrayList<>();
+        cmbSeqType.setItems(FXCollections.observableArrayList("Blocks", "Addresses"));
+        cmbSeqType.getSelectionModel().selectFirst();
 
         vbSequences.focusedProperty().addListener(returnChangeListener());
         txtNumGroups.focusedProperty().addListener(returnChangeListener());
