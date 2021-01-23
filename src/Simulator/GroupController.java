@@ -21,7 +21,7 @@ public class GroupController {
     public TextField txtGroupRep;
 
     public boolean validRep = true;
-    public int nMMBlocks;
+    public int nMMBlocks, blockSize;
     public String inputType;
 
     @FXML
@@ -30,12 +30,13 @@ public class GroupController {
         txtGroupRep.textProperty().addListener((obs, newV, oldV) -> isGroupRepValid());
     }
 
-    public void initData(int n) throws IOException {
-        this.nMMBlocks = n;
+    public void initData(int mm, int b) throws IOException {
+        this.nMMBlocks = mm;
+        this.blockSize = b;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sequence.fxml"));
         Parent sequence = loader.load();
-        ((SequenceController) loader.getController()).initData(nMMBlocks);
+        ((SequenceController) loader.getController()).initData(nMMBlocks, blockSize);
 
         vbSeqGroup.getChildren().add(sequence);
         sControllers.add(loader.getController());
@@ -49,7 +50,7 @@ public class GroupController {
         vbSeqGroup.getChildren().add(sequence);
         sControllers.add(loader.getController());
         btnRemoveSeq.setDisable(false);
-        ((SequenceController) loader.getController()).initData(nMMBlocks);
+        ((SequenceController) loader.getController()).initData(nMMBlocks, blockSize);
         ((SequenceController) loader.getController()).setInputType(inputType);
 
         int index = vbSeqGroup.getChildren().size() - 1;

@@ -66,7 +66,7 @@ public class SeqInputController {
                 Parent root = loader.load();
 
                 gControllers.add(loader.getController());
-                ((GroupController) loader.getController()).initData(memory.getMMSize());
+                ((GroupController) loader.getController()).initData(memory.getMMSize(), cache.getBlockSize());
                 ((GroupController) loader.getController()).setInputType((String) cmbSeqType.getValue());
                 children.add(root);
             }

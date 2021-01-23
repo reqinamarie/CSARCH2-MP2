@@ -14,7 +14,7 @@ import java.util.*;
 public class SequenceController {
     public TextField txtSeq, txtRep;
     public boolean repValid = true, seqValid = false;
-    public int nMMBlocks;
+    public int nMMBlocks, blockSize;
     public String inputType;
 
     @FXML
@@ -23,8 +23,9 @@ public class SequenceController {
         txtRep.textProperty().addListener((obs, oldT, newT) -> checkValid());
     }
 
-    public void initData(int n) {
-        this.nMMBlocks = n;
+    public void initData(int mm, int b) {
+        this.nMMBlocks = mm;
+        this.blockSize = b;
     }
 
     public void checkValid() {
@@ -75,6 +76,7 @@ public class SequenceController {
         Sequence seq;
         int loops = parseInt(txtRep.getText());
         String[] txtSequence = txtSeq.getText().split(", ");
+        Boolean blocks = (inputType.equals("Blocks"));
 
         // System.out.println(txtSeq.getText().split(","));
         // System.out.println(txtSequence.length);
@@ -96,7 +98,9 @@ public class SequenceController {
                 data.add(parseInt(stringData.get(i)));
             }
 
-            if (data.get(i) > nMMBlocks)
+            if (blocks && data.get(i) > nMMBlocks)
+                return null;
+            else if (!blocks && data.get(i) > (nMMBlocks * blockSize))
                 return null;
         }
 

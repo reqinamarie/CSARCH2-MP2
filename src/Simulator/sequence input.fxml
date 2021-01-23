@@ -58,7 +58,7 @@
             <Region HBox.hgrow="ALWAYS" />
             <Separator orientation="VERTICAL" prefHeight="22.0" prefWidth="6.0" />
             <Region HBox.hgrow="ALWAYS" />
-            <ComboBox id="cmbCacheType" fx:id="cmbSeqType" prefHeight="25.0" prefWidth="128.0" visibleRowCount="2" />
+            <ComboBox id="cmbCacheType" fx:id="cmbSeqType" onAction="#inputTypeChanged" prefHeight="25.0" prefWidth="128.0" visibleRowCount="2" />
          </children>
       </HBox>
       <Separator prefHeight="0.0" prefWidth="301.0" />
