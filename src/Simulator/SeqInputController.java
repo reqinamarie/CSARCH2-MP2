@@ -46,6 +46,10 @@ public class SeqInputController {
     public ArrayList<GroupController> gControllers;
     public ComboBox cmbSeqType;
 
+    private Cache cache;
+    private Memory memory;
+    private String readType;
+
     @FXML
     public void initialize() throws NullPointerException {
         gControllers = new ArrayList<>();
@@ -66,6 +70,12 @@ public class SeqInputController {
             textFields.add(txtRep1);
         } catch (Exception e) {}
          */
+    }
+
+    public void initData(Cache c, Memory m, String r) {
+        this.cache = c;
+        this.memory = m;
+        this.readType = r;
     }
 
     @FXML
