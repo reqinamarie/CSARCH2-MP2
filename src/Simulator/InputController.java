@@ -55,7 +55,6 @@ public class InputController {
 
     @FXML
     public void nextButtonClicked(ActionEvent event) throws IOException {
-        createCache(); createMemory();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sequence input.fxml"));
         Parent seqInputParent = loader.load();
@@ -75,13 +74,49 @@ public class InputController {
     public void checkIfEnableNext() {
 
         for (TextField tf: textFields) {
-            if (tf.getText().isEmpty() || !isValid(tf, tf.getText())) {
+            if (tf.getText().isEmpty() || !isValid(tf, tf.getText())) {                
                 btnNextPage.setDisable(true);
                 return;
             }
         }
 
+        if (!(txtBlockSize.getText().isEmpty())){
+            int bs = parseInt(txtBlockSize.getText());
+
+            //block size <= mm size
+            if (!(txtMMSize.getText().isEmpty()) && cmbMMType.getValue().equals("Words") && bs > parseInt(txtMMSize.getText())){
+                btnNextPage.setDisable(true);
+                // lblError
+                txtMMSize.setStyle("-fx-text-box-border: red;");
+                return;
+            }
+            //block size <= cache size
+            if (!(txtCacheSize.getText().isEmpty()) && cmbCacheType.getValue().equals("Words") && bs > parseInt(txtCacheSize.getText())){
+                btnNextPage.setDisable(true);
+                // lblError
+                txtCacheSize.setStyle("-fx-text-box-border: red;");
+                return;
+            }
+        }
+        
         btnNextPage.setDisable(false);
+
+        //cache size should be < mm size
+        if (!(txtMMSize.getText().isEmpty()) && !(txtCacheSize.getText().isEmpty())){
+            Cache c = createCache(); 
+            Memory m = createMemory();
+            if(c.getNumBlocks() >= m.getMMSize()){
+                btnNextPage.setDisable(true);
+                // lblError
+                txtMMSize.setStyle("-fx-text-box-border: red;");
+                txtCacheSize.setStyle("-fx-text-box-border: red;");
+                return;
+            }
+
+        }
+
+        btnNextPage.setDisable(false);
+        
     }
 
     private boolean isValid(TextField field, String text) {
