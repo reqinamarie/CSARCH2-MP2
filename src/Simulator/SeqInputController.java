@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -117,7 +116,7 @@ public class SeqInputController {
 
     public ArrayList<Group> getAllGroups() {
 
-        ArrayList<Group> allGroups = new ArrayList<Group>();
+        ArrayList<Simulator.Group> allGroups = new ArrayList<Group>();
         for (GroupController g : gControllers) {
             allGroups.add(g.getGroup());
         }
