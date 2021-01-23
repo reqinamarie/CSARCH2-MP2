@@ -106,7 +106,7 @@ public class InputController {
         int mmSize = parseInt(txtMMSize.getText()),
             blockSize = parseInt(txtBlockSize.getText());
 
-        if (cmbMMType.getValue() == "Blocks") {
+        if (cmbMMType.getValue().equals("Blocks")) {
             return new Memory(mmSize, parseInt(txtMMTime.getText()));
         } else {
             return new Memory(mmSize, blockSize, parseInt(txtMMTime.getText()));
@@ -120,7 +120,7 @@ public class InputController {
         int cacheSize = parseInt(txtCacheSize.getText()),
             blockSize = parseInt(txtBlockSize.getText());
 
-        if (cmbCacheType.getValue() == "Blocks") {
+        if (cmbCacheType.getValue().equals("Blocks")) {
             return new Cache(cacheSize, blockSize, cacheSize, parseInt(txtCacheTime.getText()));
         } else {
             return new Cache(cacheSize, blockSize, parseInt(txtCacheTime.getText()));
