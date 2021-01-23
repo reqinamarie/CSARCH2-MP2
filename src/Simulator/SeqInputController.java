@@ -116,7 +116,7 @@ public class SeqInputController {
 
     public ArrayList<Group> getAllGroups() {
 
-        ArrayList<Simulator.Group> allGroups = new ArrayList<Group>();
+        ArrayList<Group> allGroups = new ArrayList<Group>();
         for (GroupController g : gControllers) {
             allGroups.add(g.getGroup());
         }
@@ -136,6 +136,26 @@ public class SeqInputController {
         }
 
         btnSimulate.setDisable(false);
+    }
+
+    private void simulate() {
+        ArrayList<Group> seqGroups = getAllGroups();
+
+        for (Group g : seqGroups) {
+
+            Sequence[] currGroup = g.getSequences();
+
+            for (int i = 0; i < currGroup.length; i++) {
+
+                Sequence currSequence = currGroup[i];
+
+                for (int j = 0; j <= currSequence.getLoop(); j++)
+
+                    for (int data : currSequence.getData()) {
+                        cache.fetch(data);
+                    }
+            }
+        }
     }
 
     private ChangeListener<Boolean> returnChangeListener() {
