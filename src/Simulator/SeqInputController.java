@@ -31,7 +31,6 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-
 public class SeqInputController {
     @FXML
     public TextField txtNumGroups;
@@ -57,14 +56,11 @@ public class SeqInputController {
         btnSimulate.focusedProperty().addListener(returnChangeListener());
 
         /*
-        textFields = new ArrayList<TextField>();
-        try {
-            btnAddSeq1.fire();
-            txtSeq1.textProperty().addListener((obs, oldVal, newVal) -> checkIfEnableSimulate());
-            txtRep1.textProperty().addListener((obs, oldVal, newVal) -> checkIfEnableSimulate());
-            textFields.add(txtSeq1);
-            textFields.add(txtRep1);
-        } catch (Exception e) {}
+         * textFields = new ArrayList<TextField>(); try { btnAddSeq1.fire();
+         * txtSeq1.textProperty().addListener((obs, oldVal, newVal) ->
+         * checkIfEnableSimulate()); txtRep1.textProperty().addListener((obs, oldVal,
+         * newVal) -> checkIfEnableSimulate()); textFields.add(txtSeq1);
+         * textFields.add(txtRep1); } catch (Exception e) {}
          */
     }
 
@@ -72,8 +68,7 @@ public class SeqInputController {
     public void createGroups(ActionEvent event) {
         try {
             List<Node> children = vbSequences.getChildren();
-            int nGroups = parseInt((txtNumGroups.getText())),
-                currSize = children.size();
+            int nGroups = parseInt((txtNumGroups.getText())), currSize = children.size();
 
             for (int i = currSize; i < nGroups; i++) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("group sequence.fxml"));
@@ -84,11 +79,11 @@ public class SeqInputController {
             }
 
             for (int i = currSize; i > nGroups; i--) {
-                children.remove(i-1);
-                gControllers.remove(i-1);
+                children.remove(i - 1);
+                gControllers.remove(i - 1);
             }
 
-            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.sizeToScene();
         } catch (Exception e) {
             System.out.println("NOT A NUMBER");
@@ -100,7 +95,7 @@ public class SeqInputController {
     @FXML
     public void checkIfEnableSimulate() {
         System.out.println(textFields.size());
-        for (TextField tf: textFields) {
+        for (TextField tf : textFields) {
             if (tf.getText().isEmpty()) {
                 btnSimulate.setDisable(true);
                 return;
@@ -110,26 +105,21 @@ public class SeqInputController {
         btnSimulate.setDisable(false);
     }
 
-    public ArrayList<Sequence> getAllSequences() {
-        //  kayo na bahala lolll
+    public ArrayList<Group> getAllGroups() {
 
-        /*
-        for (GroupController g: gControllers) {
-            g.getGroupSeq;
+        ArrayList<Group> allGroups = new ArrayList<Group>();
+        for (GroupController g : gControllers) {
+            allGroups.add(g.getGroup());
         }
-         */
-        ArrayList<Sequence> allSeqs = new ArrayList<Sequence>();
-        for (GroupController g: gControllers) {
-            allSeqs.add(g.getGroup()); 
 
-        return allSeqs;
+        return allGroups;
     }
 
-    public void isValid(){
+    public void isValid() {
         if (gControllers.size() == 0)
             return;
 
-        for (GroupController g: gControllers) {
+        for (GroupController g : gControllers) {
             if (!g.isValid()) {
                 btnSimulate.setDisable(true);
                 return;
@@ -148,7 +138,7 @@ public class SeqInputController {
         };
     }
 
-    public void goToNext() throws IOException{
+    public void goToNext() throws IOException {
         try {
 
             Parent seqInputParent = FXMLLoader.load(getClass().getResource("output page.fxml"));
