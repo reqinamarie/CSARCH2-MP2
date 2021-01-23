@@ -1,3 +1,5 @@
+package Simulator;
+
 import java.util.*;
 
 public class Sequence {

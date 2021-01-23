@@ -81,13 +81,15 @@ public class GroupController {
         return true;
     }
 
-    public void getGroupSeq() {
+    public String getGroupSeq() {
         // make object dito;  change na lang din yung return type
 
+        //Array
         /*
-        for (SequenceControlelr s: sControllers) {
+        for (SequenceController s: sControllers) {
             s.getSequence()  // add niyo na lang sa array ??  idk di ko alam kung ano objects niyo
         }
         */
+        return null;
     }
 }
