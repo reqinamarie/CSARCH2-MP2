@@ -55,6 +55,8 @@ public class InputController {
 
     @FXML
     public void nextButtonClicked(ActionEvent event) throws IOException {
+        createCache(); createMemory();
+
         Parent seqInputParent = FXMLLoader.load(getClass().getResource("sequence input.fxml"));
         Scene seqInputScene = new Scene(seqInputParent);
 
@@ -92,5 +94,33 @@ public class InputController {
         }
     }
 
+    private Memory createMemory() {
+        if (btnNextPage.isDisabled())
+            return null;
+
+        int nWords = parseInt(txtMMSize.getText()),
+            blockSize = parseInt(txtBlockSize.getText());
+
+        if (cmbMMType.getValue() == "Blocks") {
+            nWords = nWords * blockSize;
+        }
+
+        return new Memory(nWords, blockSize, parseInt(txtMMTime.getText()));
+    }
+
+    private Cache createCache() {
+        if (btnNextPage.isDisabled())
+            return null;
+
+        int nBlocks = parseInt(txtCacheSize.getText()),
+            blockSize = parseInt(txtBlockSize.getText());
+
+
+        if (cmbCacheType.getValue() == "Words") {
+            nBlocks = nBlocks / blockSize;
+        }
+
+        return new Cache(parseInt(txtCacheSize.getText()), blockSize, nBlocks, parseInt(txtCacheTime.getText()));
+    }
 
 }
