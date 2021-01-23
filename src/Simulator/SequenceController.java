@@ -6,6 +6,8 @@ import org.w3c.dom.Text;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 
 import static java.lang.Integer.parseInt;
 
@@ -56,29 +58,41 @@ public class SequenceController {
     public Boolean isValid() {
         if (repValid && seqValid) {
             return true;
-        } else return false;
+        } else
+            return false;
     }
 
     public Sequence getSequence() {
-        Sequence seq = null;
+        Sequence seq;
         int loops = parseInt(txtRep.getText());
         String[] txtSequence = txtSeq.getText().split(", ");
-        
-        System.out.println(txtSequence);
-        
-        //ArrayList<String> data = Arrays.asList(txtSeq);
-        
-        //draft range splitter
-        /*
-        for (int i=0; data.size(); i++){
-            if (data.get(i).contains("-")){
-                String[] a = data.get(i).split("-");
-                // a[0] contains start range; a[1] contains end range
+
+        // System.out.println(txtSeq.getText().split(","));
+        // System.out.println(txtSequence.length);
+
+        List<String> listData = Arrays.asList(txtSequence);
+        ArrayList<String> stringData = new ArrayList<String>(listData);
+
+        ArrayList<Integer> data = new ArrayList<Integer>();
+        // Processing
+        for (int i = 0; stringData.size() > i; i++) {
+            if (stringData.get(i).contains("-")) {
+                String[] a = stringData.get(i).split("-");
+                List<Integer> range = IntStream.rangeClosed(parseInt(a[0]), (parseInt(a[1]))).boxed()
+                        .collect(Collectors.toList());
+                data.addAll(range);
+            }
+
+            else {
+                data.add(parseInt(stringData.get(i)));
             }
         }
-        */
 
-        //seq = new Sequence(data, loops);
+        for (int i = 0; i < data.size(); i++) {
+            System.out.println(data.get(i));
+        }
+
+        seq = new Sequence(data, loops);
         return seq;
     }
 }
