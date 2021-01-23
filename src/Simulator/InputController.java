@@ -49,7 +49,7 @@ public class InputController {
        textFields = Arrays.asList(txtBlockSize, txtMMSize, txtMMTime, txtCacheSize, txtCacheTime);
 
        for (TextField tf: textFields) {
-           tf.textProperty().addListener((obs, oldVal, newVal) -> checkIfEnableNext());
+           tf.textProperty().addListener((obs, oldVal, newVal) -> {isValid(tf, newVal); checkIfEnableNext();});
        }
     }
 
@@ -79,9 +79,13 @@ public class InputController {
 
     private boolean isValid(TextField field, String text) {
         try {
-            parseInt(text);
-            field.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
-            return true;
+            if (parseInt(text) > 0) {
+                field.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
+                return true;
+            }
+
+            field.setStyle("-fx-text-box-border: red;");
+            return false;
         } catch (Exception e) {
             field.setStyle("-fx-text-box-border: red;");
             return false;
