@@ -44,10 +44,13 @@ public class SeqInputController {
     public Button btnAddSeq1;
 
     public ArrayList<GroupController> gControllers;
+    public ComboBox cmbSeqType;
 
     @FXML
     public void initialize() throws NullPointerException {
         gControllers = new ArrayList<>();
+        cmbSeqType.setItems(FXCollections.observableArrayList("Blocks", "Addresses"));
+        cmbSeqType.getSelectionModel().selectFirst();
 
         vbSequences.focusedProperty().addListener(returnChangeListener());
         txtNumGroups.focusedProperty().addListener(returnChangeListener());
@@ -138,5 +141,21 @@ public class SeqInputController {
                 isValid();
             }
         };
+    }
+
+    public void goToNext() throws IOException{
+        try {
+
+            Parent seqInputParent = FXMLLoader.load(getClass().getResource("output page.fxml"));
+            Scene seqInputScene = new Scene(seqInputParent);
+
+            Stage window = (Stage) (vbWindow).getScene().getWindow();
+            window.setScene(seqInputScene);
+            window.show();
+            window.sizeToScene();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
