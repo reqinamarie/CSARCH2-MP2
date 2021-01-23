@@ -21,9 +21,14 @@ public class SequenceController {
 
     public void checkValid() {
         try {
-            parseInt(txtRep.getText());
-            txtRep.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
-            repValid = true;
+            if (parseInt(txtRep.getText()) > 0) {
+                txtRep.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
+                repValid = true;
+                return;
+            }
+
+            txtRep.setStyle("-fx-text-box-border: red;");
+            repValid = false;
         } catch (Exception e) {
             txtRep.setStyle("-fx-text-box-border: red;");
             repValid = false;
