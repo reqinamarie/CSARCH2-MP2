@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbWindow" onMouseMoved="#isValid" onMousePressed="#isValid" prefWidth="500.0" spacing="15.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Simulator.SeqInputController">
+<VBox fx:id="vbWindow" prefWidth="500.0" spacing="15.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Simulator.OutputController">
    <children>
       <HBox>
          <VBox.margin>
             <Insets />
          </VBox.margin>
          <children>
-            <TableView HBox.hgrow="ALWAYS">
+            <TableView fx:id="tblCache" HBox.hgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="colBlock" editable="false" prefWidth="-1.0" sortable="false" text="Block" />
                 <TableColumn fx:id="colData" editable="false" minWidth="0.0" prefWidth="-1.0" sortable="false" text="Data" />
