@@ -133,7 +133,7 @@ public class SeqInputController {
 
                 Sequence currSequence = currGroup[i];
 
-                for (int j = 0; j <= currSequence.getLoop(); j++)
+                for (int j = 0; j < currSequence.getLoop(); j++)
 
                     for (int data : currSequence.getData()) {
                         cache.fetch(data);
@@ -187,7 +187,8 @@ public class SeqInputController {
         int hits = this.cache.getHits();
         int miss = this.cache.getMiss();
 
-        aveAccessTime = ((hits/(hits+miss))*this.cache.getAccessTime()) + ((miss/(hits+miss))*getMissPenalty());
+        aveAccessTime = ((hits / (hits + miss)) * this.cache.getAccessTime())
+                + ((miss / (hits + miss)) * getMissPenalty());
 
         return aveAccessTime;
     }
@@ -198,17 +199,16 @@ public class SeqInputController {
         int miss = this.cache.getMiss();
 
         if (this.readType.equals("Load Through")) {
-            totalAccessTime =   (hits * this.cache.getBlockSize() * this.cache.getAccessTime()) + 
-                                (miss * this.cache.getBlockSize() * this.memory.getAccessTime()) +
-                                (miss * this.cache.getAccessTime());
-        }
-        else {
-            totalAccessTime = (hits * this.cache.getBlockSize() * this.cache.getAccessTime()) + 
-                                (miss * this.cache.getBlockSize() * (this.cache.getAccessTime() + this.memory.getAccessTime())) +
-                                (miss * this.cache.getAccessTime());
+            totalAccessTime = (hits * this.cache.getBlockSize() * this.cache.getAccessTime())
+                    + (miss * this.cache.getBlockSize() * this.memory.getAccessTime())
+                    + (miss * this.cache.getAccessTime());
+        } else {
+            totalAccessTime = (hits * this.cache.getBlockSize() * this.cache.getAccessTime())
+                    + (miss * this.cache.getBlockSize() * (this.cache.getAccessTime() + this.memory.getAccessTime()))
+                    + (miss * this.cache.getAccessTime());
         }
 
-        return totalAccessTime;        
+        return totalAccessTime;
     }
 
     public void inputTypeChanged() {

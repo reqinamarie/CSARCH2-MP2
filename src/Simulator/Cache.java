@@ -15,14 +15,15 @@ public class Cache {
 
     public Cache(int size, int block_size, int num_blocks, float access_time) {
         this.contents = new ArrayList<Integer>(num_blocks);
-        this.size = size;
+        this.size = size * block_size;
         this.block_size = block_size;
         this.num_blocks = num_blocks;
         this.access_time = access_time;
         this.mru = 0;
         this.hits = 0;
         this.miss = 0;
-    } // constructor if cache memory size given is in blocks (size == num_blocks)
+    } // constructor if cache memory size given is in blocks (size == num_blocks in
+      // input)
 
     public Cache(int size, int block_size, float access_time) {
         this.size = size;
@@ -65,6 +66,8 @@ public class Cache {
 
     public void fetch(int data) {
 
+        System.out.println("New Fetch");
+
         int index = this.find(data);
 
         if (this.isFull()) {
@@ -79,7 +82,7 @@ public class Cache {
 
         else {
             if (index == -1) { // not full, did not find
-                setMRUBlock(data);
+                addMRUBlock(data);
 
                 if (this.num_blocks - this.mru == 1) { // occupied last empty block
                     setMRU(this.mru);
@@ -105,6 +108,7 @@ public class Cache {
     }
 
     private int find(int data) {
+
         if (contents.indexOf(data) == -1)
             miss++;
         else
@@ -119,5 +123,9 @@ public class Cache {
 
     private void setMRUBlock(int data) {
         contents.set(mru, data);
+    }
+
+    private void addMRUBlock(int data) {
+        contents.add(data);
     }
 }

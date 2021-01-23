@@ -14,7 +14,6 @@ public class OutputController {
     private Cache cache;
     private float missPenalty, avgAccessTime, totalAccessTime;
 
-
     public void initData(Cache c, float missPenalty, float aveTime, float totalTime) {
         this.cache = c;
         this.missPenalty = missPenalty;
@@ -26,16 +25,14 @@ public class OutputController {
 
     private void populateTable() {
         /*
-        for (int i = 0; i < 3; i++) {
-            tblCache.getItems().add( object );
-        }
-
+         * for (int i = 0; i < 3; i++) { tblCache.getItems().add( object ); }
+         * 
          */
     }
 
     private void displayData() {
-        // lblCacheHit
-        // lblCacheMiss
+        lblCacheHit.setText(Integer.toString(cache.getHits()));
+        lblCacheMiss.setText(Integer.toString(cache.getMiss()));
         lblMissPenalty.setText(Float.toString(missPenalty));
         lblAvgTime.setText(Float.toString(avgAccessTime));
         lblTotalTime.setText(Float.toString(totalAccessTime));
