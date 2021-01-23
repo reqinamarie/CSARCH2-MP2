@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Cache {
 
-    private ArrayList<String> contents;
+    private ArrayList<Integer> contents;
     private int size;
     private int block_size;
     private int num_blocks;
@@ -12,7 +12,7 @@ public class Cache {
     private int miss;
 
     public Cache(int size, int block_size, int num_blocks, float access_time) {
-        this.contents = new ArrayList<String>(num_blocks);
+        this.contents = new ArrayList<Integer>(num_blocks);
         this.size = size;
         this.block_size = block_size;
         this.num_blocks = num_blocks;
@@ -30,7 +30,7 @@ public class Cache {
         this.mru = 0;
         this.hits = 0;
         this.miss = 0;
-        this.contents = new ArrayList<String>(this.num_blocks);
+        this.contents = new ArrayList<Integer>(this.num_blocks);
     }
 
     public int getSize() {
@@ -68,7 +68,7 @@ public class Cache {
             return false;
     }
 
-    public int find(String data) {
+    public int find(int data) {
         if (contents.indexOf(data) == -1)
             miss++;
         else
@@ -81,7 +81,7 @@ public class Cache {
         this.mru = index;
     }
 
-    public void setMRUBlock(String data) {
+    public void setMRUBlock(int data) {
         contents.set(mru, data);
     }
 }
