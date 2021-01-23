@@ -36,17 +36,26 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="seqGroup1" spacing="5.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Simulator.GroupController">
    <children>
-      <Group>
+      <HBox prefHeight="0.0" prefWidth="377.0">
          <children>
-            <Button id="btnAddSeq" fx:id="btnAddSeq" mnemonicParsing="false" onAction="#addSequence" prefHeight="25.0" prefWidth="25.0" text="+" />
-            <Label layoutX="69.0" layoutY="4.0" text="Sequence Group" />
-            <Button id="btnSimulate" fx:id="btnRemoveSeq" disable="true" layoutX="31.0" mnemonicParsing="false" onAction="#removeSequence" prefHeight="25.0" prefWidth="25.0" text="-" />
+            <Group>
+               <children>
+                  <Button id="btnAddSeq" fx:id="btnAddSeq" mnemonicParsing="false" onAction="#addSequence" prefHeight="25.0" prefWidth="25.0" text="+" />
+                  <Label layoutX="69.0" layoutY="4.0" text="Sequence Group" />
+                  <Button id="btnSimulate" fx:id="btnRemoveSeq" disable="true" layoutX="31.0" mnemonicParsing="false" onAction="#removeSequence" prefHeight="25.0" prefWidth="25.0" text="-" />
+               </children>
+            </Group>
+            <Region HBox.hgrow="ALWAYS" />
+            <TextField id="txtRep" fx:id="txtGroupRep" prefHeight="25.0" prefWidth="77.0" promptText="Repetitions" text="1" />
          </children>
-      </Group>
+      </HBox>
       <VBox fx:id="vbSeqGroup" prefHeight="25.0" prefWidth="377.0" spacing="5.0">
          <padding>
             <Insets left="20.0" />

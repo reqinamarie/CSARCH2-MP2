@@ -14,12 +14,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+
 public class GroupController {
 
     public ArrayList<SequenceController> sControllers;
 
     public Button btnRemoveSeq;
     public VBox vbSeqGroup;
+    public TextField txtGroupRep;
+
+    public boolean validRep = true;
 
     @FXML
     public void initialize() throws IOException{
@@ -30,6 +35,7 @@ public class GroupController {
 
         vbSeqGroup.getChildren().add(sequence);
         sControllers.add(loader.getController());
+        txtGroupRep.textProperty().addListener((obs, newV, oldV) -> isGroupRepValid());
     }
 
     @FXML
@@ -43,19 +49,6 @@ public class GroupController {
 
         int index = vbSeqGroup.getChildren().size() - 1;
         Group parentSeq = ((Group) vbSeqGroup.getChildren().get(index));
-
-        /*
-        ((TextField) (parentSeq.getChildren().get(1))).textProperty().addListener((obs, oldVal, newVal) -> checkIfEnableSimulate());
-        ((TextField) (parentSeq.getChildren().get(2))).textProperty().addListener((obs, oldVal, newVal) -> checkIfEnableSimulate());
-
-
-        //btnSimulate.setDisable(true);
-        textFields.add((TextField) parentSeq.getChildren().get(1));
-        textFields.add((TextField) parentSeq.getChildren().get(2));
-
-        System.out.println(textFields.size());
-
-     */
     }
 
     @FXML
@@ -73,7 +66,10 @@ public class GroupController {
     }
 
     public boolean isValid() {
-        for (SequenceController s: sControllers) {
+        if (!validRep)
+            return false;
+
+        for (SequenceController s : sControllers) {
             if (!s.isValid())
                 return false;
         }
@@ -91,5 +87,21 @@ public class GroupController {
         }
         */
         return null;
+    }
+
+    private void isGroupRepValid() {
+        try {
+            if (parseInt(txtGroupRep.getText()) > 0) {
+                txtGroupRep.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
+                validRep = true;
+                return;
+            }
+
+            txtGroupRep.setStyle("-fx-text-box-border: red;");
+            validRep = false;
+        } catch (Exception e) {
+            txtGroupRep.setStyle("-fx-text-box-border: red;");
+            validRep = false;
+        }
     }
 }
