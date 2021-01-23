@@ -38,7 +38,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="350.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Simulator.InputController">
@@ -79,8 +78,12 @@
             <Insets />
          </VBox.margin>
       </Group>
-      <ComboBox fx:id="cmbLoad" prefWidth="150.0" />
-      <Region VBox.vgrow="ALWAYS" />
+      <Group>
+         <children>
+            <Label id="blockSize" text="Read Type" />
+            <ComboBox fx:id="cmbLoad" layoutX="119.0" layoutY="-4.0" prefWidth="150.0" />
+         </children>
+      </Group>
       <Button fx:id="btnNextPage" disable="true" mnemonicParsing="false" onAction="#nextButtonClicked" text="Next">
          <VBox.margin>
             <Insets />
