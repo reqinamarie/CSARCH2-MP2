@@ -53,6 +53,14 @@ public class Cache {
         return mru;
     }
 
+    public int getMiss() {
+        return miss;
+    }
+
+    public int getHits() {
+        return hits;
+    }
+
     public boolean isFull() {
         if (contents.size() == num_blocks)
             return true;
