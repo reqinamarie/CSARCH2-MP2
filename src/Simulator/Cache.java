@@ -1,4 +1,5 @@
 package Simulator;
+
 import java.util.*;
 
 public class Cache {
@@ -62,14 +63,48 @@ public class Cache {
         return hits;
     }
 
-    public boolean isFull() {
+    public void fetch(int data) {
+
+        int index = this.find(data);
+
+        if (this.isFull()) {
+            if (index == -1) { // Full, did not find
+                setMRUBlock(data);
+            }
+
+            else { // Full, found
+                setMRU(index);
+            }
+        }
+
+        else {
+            if (index == -1) { // not full, did not find
+                setMRUBlock(data);
+
+                if (this.num_blocks - this.mru == 1) { // occupied last empty block
+                    setMRU(this.mru);
+                }
+
+                else {
+                    setMRU(this.mru++);
+                }
+
+            }
+
+            else { // found, not full cache
+                   // do nothing
+            }
+        }
+    }
+
+    private boolean isFull() {
         if (contents.size() == num_blocks)
             return true;
         else
             return false;
     }
 
-    public int find(int data) {
+    private int find(int data) {
         if (contents.indexOf(data) == -1)
             miss++;
         else
@@ -78,11 +113,11 @@ public class Cache {
         return contents.indexOf(data);
     }
 
-    public void setMRU(int index) {
+    private void setMRU(int index) {
         this.mru = index;
     }
 
-    public void setMRUBlock(int data) {
+    private void setMRUBlock(int data) {
         contents.set(mru, data);
     }
 }
