@@ -170,8 +170,12 @@ public class SeqInputController {
     public void goToNext() throws IOException {
         try {
 
-            Parent seqInputParent = FXMLLoader.load(getClass().getResource("output page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("output page.fxml"));
+            Parent seqInputParent = loader.load();
             Scene seqInputScene = new Scene(seqInputParent);
+
+            OutputController o = loader.getController();
+            o.initData(cache, getMissPenalty(), getAveAccessTime(), getTotalAccessTime());
 
             Stage window = (Stage) (vbWindow).getScene().getWindow();
             window.setScene(seqInputScene);
@@ -199,7 +203,7 @@ public class SeqInputController {
         int hits = this.cache.getHits();
         int miss = this.cache.getMiss();
 
-        aveAccessTime = ((hits/(hits*miss))*this.cache.getAccessTime()) + ((miss/(hits+miss))*self.getMissPenalty());
+        aveAccessTime = ((hits/(hits*miss))*this.cache.getAccessTime()) + ((miss/(hits+miss))*getMissPenalty());
 
         return aveAccessTime;
     }

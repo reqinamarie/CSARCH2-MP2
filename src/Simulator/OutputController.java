@@ -15,9 +15,17 @@ public class OutputController {
     public TableView tblCache;
     public TableColumn colBlock, colData;
 
-    @FXML
-    public void initialize() {
-        populateTable();
+    private Cache cache;
+    private float missPenalty, avgAccessTime, totalAccessTime;
+
+
+    public void initData(Cache c, float missPenalty, float aveTime, float totalTime) {
+        this.cache = c;
+        this.missPenalty = missPenalty;
+        this.avgAccessTime = aveTime;
+        this.totalAccessTime = totalTime;
+
+        displayData();
     }
 
     private void populateTable() {
@@ -27,5 +35,15 @@ public class OutputController {
         }
 
          */
+    }
+
+    private void displayData() {
+        // lblCacheHit
+        // lblCacheMiss
+        lblMissPenalty.setText(Float.toString(missPenalty));
+        lblAvgTime.setText(Float.toString(avgAccessTime));
+        lblTotalTime.setText(Float.toString(totalAccessTime));
+
+        populateTable();
     }
 }
