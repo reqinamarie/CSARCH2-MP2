@@ -15,7 +15,7 @@ import java.util.*;
 
 public class SequenceController {
     public TextField txtSeq, txtRep;
-    public boolean repValid = false, seqValid = false;
+    public boolean repValid = true, seqValid = false;
 
     @FXML
     public void initialize() {
@@ -45,7 +45,6 @@ public class SequenceController {
         Boolean b = m.matches();
 
         if (!b) {
-            System.out.println(txtSeq);
             txtSeq.setStyle("-fx-text-box-border: red;");
             seqValid = false;
             return;
