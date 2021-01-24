@@ -88,7 +88,7 @@
                   <HBox>
                      <children>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button id="btnSimulate" fx:id="btnExport" mnemonicParsing="false" text="Export Results" />
+                        <Button id="btnSimulate" fx:id="btnExport" mnemonicParsing="false" onAction="#createFile" text="Export Results" />
                      </children>
                   </HBox>
                </children>
