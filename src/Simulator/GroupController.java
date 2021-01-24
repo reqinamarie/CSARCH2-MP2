@@ -52,25 +52,6 @@ public class GroupController {
         btnRemoveSeq.setDisable(false);
         ((SequenceController) loader.getController()).initData(nMMBlocks, blockSize);
         ((SequenceController) loader.getController()).setInputType(inputType);
-
-        int index = vbSeqGroup.getChildren().size() - 1;
-        javafx.scene.Group parentSeq = ((javafx.scene.Group) vbSeqGroup.getChildren().get(index));
-
-        /*
-         * ((TextField)
-         * (parentSeq.getChildren().get(1))).textProperty().addListener((obs, oldVal,
-         * newVal) -> checkIfEnableSimulate()); ((TextField)
-         * (parentSeq.getChildren().get(2))).textProperty().addListener((obs, oldVal,
-         * newVal) -> checkIfEnableSimulate());
-         * 
-         * 
-         * //btnSimulate.setDisable(true); textFields.add((TextField)
-         * parentSeq.getChildren().get(1)); textFields.add((TextField)
-         * parentSeq.getChildren().get(2));
-         * 
-         * System.out.println(textFields.size());
-         * 
-         */
     }
 
     @FXML

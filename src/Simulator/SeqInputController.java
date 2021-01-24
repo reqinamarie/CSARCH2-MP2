@@ -87,19 +87,6 @@ public class SeqInputController {
         }
     }
 
-    @FXML
-    public void checkIfEnableSimulate() {
-        System.out.println(textFields.size());
-        for (TextField tf : textFields) {
-            if (tf.getText().isEmpty()) {
-                btnSimulate.setDisable(true);
-                return;
-            }
-        }
-
-        btnSimulate.setDisable(false);
-    }
-
     public ArrayList<Group> getAllGroups() {
 
         ArrayList<Group> allGroups = new ArrayList<Group>();
@@ -139,6 +126,7 @@ public class SeqInputController {
                 for (int i = 0; i < currGroup.length; i++) {
                     Sequence currSequence = currGroup[i];
 
+                    //System.out.println(currSequence.getLoop() + " | " + currSequence.getData());
                     for (int j = 0; j < currSequence.getLoop(); j++) {
                         for (int data : currSequence.getData()) {
                             cache.fetch(data);

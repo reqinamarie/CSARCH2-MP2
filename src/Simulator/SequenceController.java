@@ -15,7 +15,7 @@ public class SequenceController {
     public TextField txtSeq, txtRep;
     public boolean repValid = true, seqValid = false;
     public int nMMBlocks, blockSize;
-    public String inputType, errorMessage = "";
+    public String inputType, errorMessage = " ";
 
     @FXML
     public void initialize() {
@@ -47,11 +47,11 @@ public class SequenceController {
     }
 
     public void checkValidSeq() {
-        Pattern p = Pattern.compile("(\\d+||(\\d+-\\d+))(,( )*(\\d+||(\\d+-\\d+)))*");
+        Pattern p = Pattern.compile("(\\d+|(\\d+-\\d+))(,\\s*(\\d+|(\\d+-\\d+)))*");
         Matcher m = p.matcher(txtSeq.getText());
         Boolean b = m.matches();
 
-        if (txtSeq.getText().isEmpty()) {
+        if (txtSeq.getText().trim().isEmpty()) {
             errorMessage = "ERROR: Sequence input cannot be empty";
             txtSeq.setStyle("-fx-text-box-border: red;");
             seqValid = false;
@@ -66,7 +66,7 @@ public class SequenceController {
         }
 
         if (getSequence() == null) {
-            errorMessage = "ERROR: Input values must be within the range of declared Main Memory size.)";
+            //errorMessage = "ERROR: Input values must be within the range of declared Main Memory size.)";
             txtSeq.setStyle("-fx-text-box-border: red;");
             seqValid = false;
             return;
@@ -87,46 +87,44 @@ public class SequenceController {
     public Sequence getSequence() {
         Sequence seq;
         int loops = parseInt(txtRep.getText());
-        String[] txtSequence = txtSeq.getText().split(",");
-        Boolean blocks = (inputType.equals("Blocks"));
+        String[] txtSequence = txtSeq.getText().split("[,\\s][\\s]*");
+        //Boolean blocks = (inputType.equals("Blocks"));
 
-        // System.out.println(txtSeq.getText().split(","));
-        // System.out.println(txtSequence.length);
+        int toBlocks = 1;
+        if (inputType.equals("Words"))
+            toBlocks = blockSize;
 
         List<String> listData = Arrays.asList(txtSequence);
         ArrayList<String> stringData = new ArrayList<String>(listData);
 
         ArrayList<Integer> data = new ArrayList<Integer>();
         // Processing
-        for (int i = 0; stringData.size() > i; i++) {
-            stringData.set(i, stringData.get(i).trim());
-            if (stringData.get(i).contains("-")) {
-                String[] a = stringData.get(i).split("-");
-                List<Integer> range = IntStream.rangeClosed(parseInt(a[0]), (parseInt(a[1]))).boxed()
-                        .collect(Collectors.toList());
-                data.addAll(range);
-            }
-            else if (stringData.get(i).isEmpty()) {
-                break;
-            }
-            else {
-                data.add(parseInt(stringData.get(i)));
+
+        try {
+            for (int i = 0; stringData.size() > i; i++) {
+                if (stringData.get(i).contains("-")) {
+                    String[] a = stringData.get(i).split("-");
+                    List<Integer> range = IntStream.rangeClosed(parseInt(a[0]) / toBlocks, (parseInt(a[1])) / toBlocks).boxed()
+                            .collect(Collectors.toList());
+                    data.addAll(range);
+                } else {
+                    data.add(parseInt(stringData.get(i)) / toBlocks);
+                }
+
+                if (data.get(data.size()-1) >= nMMBlocks) {
+                    errorMessage = "ERROR: Input values must be within the range of declared Main Memory size.)";
+                    System.out.println(nMMBlocks + " | " +  data);
+                    return null;
+                }
             }
 
-            if (blocks && data.get(i) > nMMBlocks)
-                return null;
-            else if (!blocks && data.get(i) > (nMMBlocks * blockSize))
-                return null;
+            seq = new Sequence(data, loops);
+            return seq;
+        } catch (Exception e) {
+            errorMessage = "ERROR: Invalid range input";
+            return null;
         }
 
-        if (!blocks) {
-            for (int i = 0; i < data.size(); i++) {
-                data.set(i, data.get(i) / blockSize);
-            }
-        }
-
-        seq = new Sequence(data, loops);
-        return seq;
     }
 
     public void setInputType(String type) {
