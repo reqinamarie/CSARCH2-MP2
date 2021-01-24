@@ -125,18 +125,19 @@ public class SeqInputController {
         ArrayList<Group> seqGroups = getAllGroups();
 
         for (Group g : seqGroups) {
-
             Sequence[] currGroup = g.getSequences();
 
-            for (int i = 0; i < currGroup.length; i++) {
+            for (int k = 0; k < g.getLoops(); k++) {
 
-                Sequence currSequence = currGroup[i];
+                for (int i = 0; i < currGroup.length; i++) {
+                    Sequence currSequence = currGroup[i];
 
-                for (int j = 0; j < currSequence.getLoop(); j++)
-
-                    for (int data : currSequence.getData()) {
-                        cache.fetch(data);
+                    for (int j = 0; j < currSequence.getLoop(); j++) {
+                        for (int data : currSequence.getData()) {
+                            cache.fetch(data);
+                        }
                     }
+                }
             }
         }
     }
