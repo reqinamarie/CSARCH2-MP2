@@ -32,6 +32,7 @@ public class InputController {
     public TextField txtCacheSize;
     public TextField txtCacheTime;
     public List<TextField> textFields;
+    public List<TextField> tfSizes;
 
     public Button btnNextPage;
     public boolean tfValid = false;
@@ -49,6 +50,7 @@ public class InputController {
         cmbLoad.getSelectionModel().selectFirst();
 
        textFields = Arrays.asList(txtBlockSize, txtMMSize, txtMMTime, txtCacheSize, txtCacheTime);
+       tfSizes = Arrays.asList(txtBlockSize, txtMMSize, txtCacheSize);
 
        for (TextField tf: textFields) {
            tf.textProperty().addListener((obs, oldVal, newVal) -> {isValid(tf, newVal); checkIfEnableNext();});
@@ -91,7 +93,7 @@ public class InputController {
     private boolean isValid(TextField field, String text) {
         try {
             if (parseInt(text) > 0) {
-                if (Arrays.asList(txtBlockSize, txtMMSize, txtCacheSize).contains(field)) {
+                if (tfSizes.contains(field)) {
                     if (!validateSizes())
                         return false;
                 }
