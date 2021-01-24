@@ -38,9 +38,11 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="350.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Simulator.InputController">
+<VBox prefHeight="350.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Simulator.InputController">
    <children>
       <Group>
          <children>
@@ -56,7 +58,7 @@
          <children>
             <Label id="blockSize" layoutY="4.0" text="Main Memory Size" />
             <TextField id="txtMMSize" fx:id="txtMMSize" layoutX="121.0" />
-            <ComboBox id="cmbMMType" fx:id="cmbMMType" layoutX="289.0" prefWidth="150.0" visibleRowCount="2" />
+            <ComboBox id="cmbMMType" fx:id="cmbMMType" layoutX="289.0" onAction="#validateSizes" prefWidth="150.0" visibleRowCount="2" />
             <Label id="blockSize" layoutY="38.0" text="MM Access Time" />
             <TextField id="txtMMTime" fx:id="txtMMTime" layoutX="121.0" layoutY="34.0" />
             <Label layoutX="289.0" layoutY="38.0" text="ns" />
@@ -69,7 +71,7 @@
          <children>
             <Label id="blockSize" layoutY="4.0" text="Cache Memory Size" />
             <TextField id="txtCacheSize" fx:id="txtCacheSize" layoutX="121.0" />
-            <ComboBox id="cmbCacheType" fx:id="cmbCacheType" layoutX="289.0" prefWidth="150.0" visibleRowCount="2" />
+            <ComboBox id="cmbCacheType" fx:id="cmbCacheType" layoutX="289.0" onAction="#validateSizes" prefWidth="150.0" visibleRowCount="2" />
             <Label id="blockSize" layoutY="38.0" text="Cache Access Time" />
             <TextField id="txtCacheTime" fx:id="txtCacheTime" layoutX="121.0" layoutY="34.0" />
             <Label layoutX="289.0" layoutY="38.0" text="ns" />
@@ -84,11 +86,16 @@
             <ComboBox fx:id="cmbLoad" layoutX="119.0" layoutY="-4.0" prefWidth="150.0" />
          </children>
       </Group>
-      <Button fx:id="btnNextPage" disable="true" mnemonicParsing="false" onAction="#nextButtonClicked" text="Next">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </Button>
+      <HBox alignment="CENTER_LEFT" prefWidth="440.0" spacing="15.0">
+         <children>
+            <Button fx:id="btnNextPage" disable="true" mnemonicParsing="false" onAction="#nextButtonClicked" text="Next" />
+            <Label fx:id="lblError" textFill="#d10000" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
    </children>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
