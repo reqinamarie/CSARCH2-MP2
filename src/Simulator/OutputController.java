@@ -8,6 +8,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import javax.imageio.*;
+
 public class OutputController {
     public Label lblCacheHit, lblCacheMiss, lblMissPenalty, lblAvgTime, lblTotalTime;
     public Button btnExport;
@@ -58,5 +65,46 @@ public class OutputController {
         lblTotalTime.setText(Float.toString(totalAccessTime));
 
         populateTable();
+    }
+
+    /*
+    public void snapshot() throws Exception {
+        try
+        {
+            Robot awt_robot = new Robot();
+            BufferedImage Entire_Screen = awt_robot.createScreenCapture(new Rectangle(435,115, 500, 480));
+            //BufferedImage Entire_Screen = awt_robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+            ImageIO.write(Entire_Screen, "PNG", new File("Entire_Screen.png"));
+        }
+        catch(java.awt.AWTException awte)
+        {
+            awte.printStackTrace();
+        }
+        
+    }
+    */
+
+    public void createFile() {
+        //write
+        try {
+            FileWriter myWriter = new FileWriter("result.txt");
+            myWriter.write("Cache Hits:      " + cache.getHits() + "\n");
+            myWriter.write("Cache Misses:    " + cache.getMiss() + "\n");
+            myWriter.write("Miss Penalty:    " + this.missPenalty + "\n");
+            myWriter.write("Average Memory Access Time: " + this.avgAccessTime + "\n");
+            myWriter.write("Total Memory Access Time:   " + this.totalAccessTime + "\n\n\n");
+
+            myWriter.write("     Block     " + "|" + "     Data     \n");
+            int index = 0;
+            for (int data : cache.getContent()) {
+                myWriter.write("       " + index + "       " + "|" + "       " + data + "        \n");
+                index++;
+            }
+            myWriter.close();
+            System.out.println("Successfully exported results.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }
