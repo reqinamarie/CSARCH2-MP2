@@ -94,7 +94,9 @@ public class SequenceController {
                         .collect(Collectors.toList());
                 data.addAll(range);
             }
-
+            else if (stringData.get(i).isEmpty()) {
+                break;
+            }
             else {
                 data.add(parseInt(stringData.get(i)));
             }
