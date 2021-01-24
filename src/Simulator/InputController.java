@@ -66,10 +66,10 @@ public class InputController {
         Parent seqInputParent = loader.load();
 
         SeqInputController siController = loader.getController();
-        siController.initData(createCache(), createMemory(), cmbLoad.getValue());
 
         Scene seqInputScene = new Scene(seqInputParent);
 
+        siController.initData(createCache(), createMemory(), cmbLoad.getValue(), seqInputScene);
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.setScene(seqInputScene);
         window.show();

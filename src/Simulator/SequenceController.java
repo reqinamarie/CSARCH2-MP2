@@ -15,7 +15,7 @@ public class SequenceController {
     public TextField txtSeq, txtRep;
     public boolean repValid = true, seqValid = false;
     public int nMMBlocks, blockSize;
-    public String inputType;
+    public String inputType, errorMessage = "";
 
     @FXML
     public void initialize() {
@@ -36,9 +36,11 @@ public class SequenceController {
                 return;
             }
 
+            errorMessage = "ERROR: Sequence repetition must be an integer greater than 0.";
             txtRep.setStyle("-fx-text-box-border: red;");
             repValid = false;
         } catch (Exception e) {
+            errorMessage = "ERROR: Sequence repetition must be an integer greater than 0.";
             txtRep.setStyle("-fx-text-box-border: red;");
             repValid = false;
         }
@@ -49,13 +51,22 @@ public class SequenceController {
         Matcher m = p.matcher(txtSeq.getText());
         Boolean b = m.matches();
 
-        if (!b || txtSeq.getText().isEmpty()) {
+        if (txtSeq.getText().isEmpty()) {
+            errorMessage = "ERROR: Sequence input cannot be empty";
+            txtSeq.setStyle("-fx-text-box-border: red;");
+            seqValid = false;
+            return;
+        }
+
+        if (!b) {
+            errorMessage = "ERROR: Improper syntax. (Integers only; comma delimited; dash for range representation.)";
             txtSeq.setStyle("-fx-text-box-border: red;");
             seqValid = false;
             return;
         }
 
         if (getSequence() == null) {
+            errorMessage = "ERROR: Input values must be within the range of declared Main Memory size.)";
             txtSeq.setStyle("-fx-text-box-border: red;");
             seqValid = false;
             return;
@@ -65,11 +76,12 @@ public class SequenceController {
         seqValid = true;
     }
 
-    public Boolean isValid() {
+    public String isValid() {
         if (repValid && seqValid) {
-            return true;
-        } else
-            return false;
+            errorMessage = "";
+        }
+
+        return errorMessage;
     }
 
     public Sequence getSequence() {

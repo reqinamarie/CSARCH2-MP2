@@ -11,8 +11,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class SeqInputController {
     public ArrayList<TextField> textFields;
 
     public Button btnSimulate;
-    public Button btnAddSeq1;
+    public Text txtError;
 
     public ArrayList<GroupController> gControllers;
     public ComboBox cmbSeqType;
@@ -37,21 +39,22 @@ public class SeqInputController {
     private Memory memory;
     private String readType;
 
+
     @FXML
     public void initialize() throws NullPointerException {
         gControllers = new ArrayList<>();
         cmbSeqType.setItems(FXCollections.observableArrayList("Blocks", "Addresses"));
         cmbSeqType.getSelectionModel().selectFirst();
-
-        vbSequences.focusedProperty().addListener(returnChangeListener());
-        txtNumGroups.focusedProperty().addListener(returnChangeListener());
-        btnSimulate.focusedProperty().addListener(returnChangeListener());
     }
 
-    public void initData(Cache c, Memory m, String r) {
+    public void initData(Cache c, Memory m, String r, Scene s) {
         this.cache = c;
         this.memory = m;
         this.readType = r;
+        s.focusOwnerProperty().addListener((o, oldv, newv) -> {
+            if (newv != null)
+                isValid();
+        });
     }
 
     @FXML
@@ -111,13 +114,17 @@ public class SeqInputController {
         if (gControllers.size() == 0)
             return;
 
+        String err;
         for (GroupController g : gControllers) {
-            if (!g.isValid()) {
+            err = g.isValid();
+            if (!err.isEmpty()) {
                 btnSimulate.setDisable(true);
+                txtError.setText(g.isValid());
                 return;
             }
         }
 
+        txtError.setText("");
         btnSimulate.setDisable(false);
     }
 
@@ -140,15 +147,6 @@ public class SeqInputController {
                 }
             }
         }
-    }
-
-    private ChangeListener<Boolean> returnChangeListener() {
-        return new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                isValid();
-            }
-        };
     }
 
     public void goToNext() throws IOException {
