@@ -99,11 +99,11 @@ public class InputController {
                     if (!validateSizes())
                         return false;
                 }
-
+                lblError.setText("");
                 field.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
                 return true;
             }
-
+            lblError.setText("Invalid input. Please enter a natural number.");
             field.setStyle("-fx-text-box-border: red;");
             return false;
         } catch (Exception e) {
