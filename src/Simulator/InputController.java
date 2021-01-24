@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class InputController {
     public TextField txtCacheTime;
     public List<TextField> textFields;
     public List<TextField> tfSizes;
+    public Label lblError;
 
     public Button btnNextPage;
     public boolean tfValid = false;
@@ -119,7 +121,7 @@ public class InputController {
             //block size <= mm size
             if (!(txtMMSize.getText().isEmpty()) && cmbMMType.getValue().equals("Words") && bs > parseInt(txtMMSize.getText())){
                 err = true;
-                // lblError
+                lblError.setText("Main memory is smaller than block size.");
                 txtMMSize.setStyle("-fx-text-box-border: red;");
             } else {
                 txtMMSize.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
@@ -128,7 +130,7 @@ public class InputController {
             //block size <= cache size
             if (!(txtCacheSize.getText().isEmpty()) && cmbCacheType.getValue().equals("Words") && bs > parseInt(txtCacheSize.getText())){
                 err = true;
-                // lblError
+                lblError.setText("Cache memory is smaller than block size.");
                 txtCacheSize.setStyle("-fx-text-box-border: red;");
             } else {
                 txtCacheSize.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
@@ -153,6 +155,7 @@ public class InputController {
         }
 
         if (tfValid) {
+            lblError.setText("");
             btnNextPage.setDisable(false);
         }
         return true;
