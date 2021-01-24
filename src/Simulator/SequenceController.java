@@ -94,7 +94,9 @@ public class SequenceController {
                         .collect(Collectors.toList());
                 data.addAll(range);
             }
-
+            else if (stringData.get(i).isEmpty()) {
+                break;
+            }
             else {
                 data.add(parseInt(stringData.get(i)));
             }
@@ -103,6 +105,12 @@ public class SequenceController {
                 return null;
             else if (!blocks && data.get(i) > (nMMBlocks * blockSize))
                 return null;
+        }
+
+        if (!blocks) {
+            for (int i = 0; i < data.size(); i++) {
+                data.set(i, data.get(i) / blockSize);
+            }
         }
 
         seq = new Sequence(data, loops);

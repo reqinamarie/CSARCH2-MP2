@@ -81,7 +81,6 @@ public class InputController {
 
         for (TextField tf: textFields) {
             if (tf.getText().isEmpty() || !isValid(tf, tf.getText())) {
-                System.out.println("invalid " + tf.getId());
                 btnNextPage.setDisable(true);
                 tfValid = false;
                 return;
