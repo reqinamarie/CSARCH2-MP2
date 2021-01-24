@@ -105,6 +105,12 @@ public class SequenceController {
                 return null;
         }
 
+        if (!blocks) {
+            for (int i = 0; i < data.size(); i++) {
+                data.set(i, data.get(i) / blockSize);
+            }
+        }
+
         seq = new Sequence(data, loops);
         return seq;
     }

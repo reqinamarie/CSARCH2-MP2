@@ -4,12 +4,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class OutputController {
     public Label lblCacheHit, lblCacheMiss, lblMissPenalty, lblAvgTime, lblTotalTime;
     public Button btnExport;
-    public TableView tblCache;
-    public TableColumn colBlock, colData;
+    public TableView<TableRow> tblCache;
+    // public TableColumn<TableRow, String> colBlock, colData;
 
     private Cache cache;
     private float missPenalty, avgAccessTime, totalAccessTime;
@@ -20,14 +23,31 @@ public class OutputController {
         this.avgAccessTime = aveTime;
         this.totalAccessTime = totalTime;
 
+        // this.colData.setCellValueFactory(cell -> new SimpleIntegerProperty());
+        // this.colBlock.setCellValueFactory(cell -> new SimpleStringProperty(new
+        // String("456")));
+        // tblCache.getItems().addAll(IntStream.rangeClosed(0, c.getSize() - 1), "column
+        // 2");
         displayData();
     }
 
     private void populateTable() {
-        /*
-         * for (int i = 0; i < 3; i++) { tblCache.getItems().add( object ); }
-         * 
-         */
+
+        ObservableList<TableRow> rows = FXCollections.observableArrayList();
+        int index = 0;
+        for (int data : cache.getContent()) {
+            rows.add(new TableRow(index, data));
+            index++;
+        }
+
+        TableColumn<TableRow, String> colBlock = new TableColumn<>("Block");
+        colBlock.setCellValueFactory(new PropertyValueFactory<>("blockNo"));
+
+        TableColumn<TableRow, String> colData = new TableColumn<>("Data");
+        colData.setCellValueFactory(new PropertyValueFactory<>("data"));
+
+        tblCache.setItems(rows);
+        tblCache.getColumns().addAll(colBlock, colData);
     }
 
     private void displayData() {
