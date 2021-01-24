@@ -106,8 +106,8 @@ public class SequenceController {
         }
 
         if (!blocks) {
-            for (int num : data) {
-                num = num / blockSize;
+            for (int i = 0; i < data.size(); i++) {
+                data.set(i, data.get(i) / blockSize);
             }
         }
 
