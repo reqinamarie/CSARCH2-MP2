@@ -126,7 +126,6 @@ public class SeqInputController {
                 for (int i = 0; i < currGroup.length; i++) {
                     Sequence currSequence = currGroup[i];
 
-                    //System.out.println(currSequence.getLoop() + " | " + currSequence.getData());
                     for (int j = 0; j < currSequence.getLoop(); j++) {
                         for (int data : currSequence.getData()) {
                             cache.fetch(data);

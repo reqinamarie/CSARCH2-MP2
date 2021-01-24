@@ -51,6 +51,9 @@ public class SequenceController {
         Matcher m = p.matcher(txtSeq.getText());
         Boolean b = m.matches();
 
+        if (!repValid)
+            return;
+
         if (txtSeq.getText().trim().isEmpty()) {
             errorMessage = "ERROR: Sequence input cannot be empty";
             txtSeq.setStyle("-fx-text-box-border: red;");
@@ -91,7 +94,7 @@ public class SequenceController {
         //Boolean blocks = (inputType.equals("Blocks"));
 
         int toBlocks = 1;
-        if (inputType.equals("Words"))
+        if (inputType.equals("Addresses"))
             toBlocks = blockSize;
 
         List<String> listData = Arrays.asList(txtSequence);
@@ -113,7 +116,6 @@ public class SequenceController {
 
                 if (data.get(data.size()-1) >= nMMBlocks) {
                     errorMessage = "ERROR: Input values must be within the range of declared Main Memory size.)";
-                    System.out.println(nMMBlocks + " | " +  data);
                     return null;
                 }
             }
