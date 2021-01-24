@@ -69,11 +69,11 @@ public class Cache {
     }
 
     public void fetch(int data) {
-
+/*
         System.out.println("New Fetch");
         System.out.println("Current MRU: " + mru);
         System.out.println("Num blocks: " + num_blocks);
-
+*/
         int index = this.find(data);
 
         if (this.isFull()) {

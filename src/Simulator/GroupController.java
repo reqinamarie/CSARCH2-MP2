@@ -22,7 +22,7 @@ public class GroupController {
 
     public boolean validRep = true;
     public int nMMBlocks, blockSize;
-    public String inputType;
+    public String inputType, errorMessage = "";
 
     @FXML
     public void initialize() {
@@ -52,25 +52,6 @@ public class GroupController {
         btnRemoveSeq.setDisable(false);
         ((SequenceController) loader.getController()).initData(nMMBlocks, blockSize);
         ((SequenceController) loader.getController()).setInputType(inputType);
-
-        int index = vbSeqGroup.getChildren().size() - 1;
-        javafx.scene.Group parentSeq = ((javafx.scene.Group) vbSeqGroup.getChildren().get(index));
-
-        /*
-         * ((TextField)
-         * (parentSeq.getChildren().get(1))).textProperty().addListener((obs, oldVal,
-         * newVal) -> checkIfEnableSimulate()); ((TextField)
-         * (parentSeq.getChildren().get(2))).textProperty().addListener((obs, oldVal,
-         * newVal) -> checkIfEnableSimulate());
-         * 
-         * 
-         * //btnSimulate.setDisable(true); textFields.add((TextField)
-         * parentSeq.getChildren().get(1)); textFields.add((TextField)
-         * parentSeq.getChildren().get(2));
-         * 
-         * System.out.println(textFields.size());
-         * 
-         */
     }
 
     @FXML
@@ -87,15 +68,18 @@ public class GroupController {
         sControllers.remove(nSeq - 1);
     }
 
-    public boolean isValid() {
+    public String isValid() {
         if (!validRep)
-            return false;
+            return errorMessage;
 
         for (SequenceController s : sControllers) {
-            if (!s.isValid())
-                return false;
+            if (!s.isValid().isEmpty()) {
+                return s.errorMessage;
+            }
         }
-        return true;
+
+        errorMessage = "";
+        return errorMessage;
     }
 
     public Group getGroup() {
@@ -119,9 +103,11 @@ public class GroupController {
                 return;
             }
 
+            errorMessage = "ERROR: Group repetition must be an integer greater than 0.";
             txtGroupRep.setStyle("-fx-text-box-border: red;");
             validRep = false;
         } catch (Exception e) {
+            errorMessage = "ERROR: Group repetition must be an integer greater than 0.";
             txtGroupRep.setStyle("-fx-text-box-border: red;");
             validRep = false;
         }
