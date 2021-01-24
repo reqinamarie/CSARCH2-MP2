@@ -97,6 +97,8 @@ public class InputController {
                 if (tfSizes.contains(field)) {
                     if (!validateSizes())
                         return false;
+                    if (!base2(field))
+                        return false;
                 }
                 lblError.setText("");
                 field.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
@@ -109,6 +111,17 @@ public class InputController {
             field.setStyle("-fx-text-box-border: red;");
             return false;
         }
+    }
+
+    public boolean base2(TextField field){
+        int x = parseInt(field.getText());
+        if ((x != 0) && ((x & (x - 1)) == 0))
+            return true;
+        
+        lblError.setText("Value should be of base 2.");
+        field.setStyle("-fx-text-box-border: red;");
+        btnNextPage.setDisable(true);
+        return false;
     }
 
     public boolean validateSizes() {
