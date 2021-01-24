@@ -58,7 +58,7 @@
          <children>
             <Label id="blockSize" layoutY="4.0" text="Main Memory Size" />
             <TextField id="txtMMSize" fx:id="txtMMSize" layoutX="121.0" />
-            <ComboBox id="cmbMMType" fx:id="cmbMMType" layoutX="289.0" prefWidth="150.0" visibleRowCount="2" />
+            <ComboBox id="cmbMMType" fx:id="cmbMMType" layoutX="289.0" onAction="#validateSizes" prefWidth="150.0" visibleRowCount="2" />
             <Label id="blockSize" layoutY="38.0" text="MM Access Time" />
             <TextField id="txtMMTime" fx:id="txtMMTime" layoutX="121.0" layoutY="34.0" />
             <Label layoutX="289.0" layoutY="38.0" text="ns" />
@@ -71,7 +71,7 @@
          <children>
             <Label id="blockSize" layoutY="4.0" text="Cache Memory Size" />
             <TextField id="txtCacheSize" fx:id="txtCacheSize" layoutX="121.0" />
-            <ComboBox id="cmbCacheType" fx:id="cmbCacheType" layoutX="289.0" prefWidth="150.0" visibleRowCount="2" />
+            <ComboBox id="cmbCacheType" fx:id="cmbCacheType" layoutX="289.0" onAction="#validateSizes" prefWidth="150.0" visibleRowCount="2" />
             <Label id="blockSize" layoutY="38.0" text="Cache Access Time" />
             <TextField id="txtCacheTime" fx:id="txtCacheTime" layoutX="121.0" layoutY="34.0" />
             <Label layoutX="289.0" layoutY="38.0" text="ns" />

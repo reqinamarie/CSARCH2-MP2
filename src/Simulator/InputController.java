@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,7 @@ public class InputController {
     public List<TextField> textFields;
 
     public Button btnNextPage;
+    public boolean tfValid = false;
 
     @FXML
     public void initialize() {
@@ -74,54 +76,26 @@ public class InputController {
     public void checkIfEnableNext() {
 
         for (TextField tf: textFields) {
-            if (tf.getText().isEmpty() || !isValid(tf, tf.getText())) {                
+            if (tf.getText().isEmpty() || !isValid(tf, tf.getText())) {
+                System.out.println("invalid " + tf.getId());
                 btnNextPage.setDisable(true);
+                tfValid = false;
                 return;
             }
-        }
-
-        if (!(txtBlockSize.getText().isEmpty())){
-            int bs = parseInt(txtBlockSize.getText());
-
-            //block size <= mm size
-            if (!(txtMMSize.getText().isEmpty()) && cmbMMType.getValue().equals("Words") && bs > parseInt(txtMMSize.getText())){
-                btnNextPage.setDisable(true);
-                // lblError
-                txtMMSize.setStyle("-fx-text-box-border: red;");
-                return;
-            }
-            //block size <= cache size
-            if (!(txtCacheSize.getText().isEmpty()) && cmbCacheType.getValue().equals("Words") && bs > parseInt(txtCacheSize.getText())){
-                btnNextPage.setDisable(true);
-                // lblError
-                txtCacheSize.setStyle("-fx-text-box-border: red;");
-                return;
-            }
-        }
-        
-        btnNextPage.setDisable(false);
-
-        //cache size should be < mm size
-        if (!(txtMMSize.getText().isEmpty()) && !(txtCacheSize.getText().isEmpty())){
-            Cache c = createCache(); 
-            Memory m = createMemory();
-            if(c.getNumBlocks() >= m.getMMSize()){
-                btnNextPage.setDisable(true);
-                // lblError
-                txtMMSize.setStyle("-fx-text-box-border: red;");
-                txtCacheSize.setStyle("-fx-text-box-border: red;");
-                return;
-            }
-
         }
 
         btnNextPage.setDisable(false);
-        
+        tfValid = true;
     }
 
     private boolean isValid(TextField field, String text) {
         try {
             if (parseInt(text) > 0) {
+                if (Arrays.asList(txtBlockSize, txtMMSize, txtCacheSize).contains(field)) {
+                    if (!validateSizes())
+                        return false;
+                }
+
                 field.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
                 return true;
             }
@@ -132,6 +106,54 @@ public class InputController {
             field.setStyle("-fx-text-box-border: red;");
             return false;
         }
+    }
+
+    public boolean validateSizes() {
+        boolean err = false;
+
+        if (!(txtBlockSize.getText().isEmpty())){
+            int bs = parseInt(txtBlockSize.getText());
+
+            //block size <= mm size
+            if (!(txtMMSize.getText().isEmpty()) && cmbMMType.getValue().equals("Words") && bs > parseInt(txtMMSize.getText())){
+                err = true;
+                // lblError
+                txtMMSize.setStyle("-fx-text-box-border: red;");
+            } else {
+                txtMMSize.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
+            }
+
+            //block size <= cache size
+            if (!(txtCacheSize.getText().isEmpty()) && cmbCacheType.getValue().equals("Words") && bs > parseInt(txtCacheSize.getText())){
+                err = true;
+                // lblError
+                txtCacheSize.setStyle("-fx-text-box-border: red;");
+            } else {
+                txtCacheSize.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
+            }
+        }
+/*
+        //cache size should be < mm size
+        if (!(txtMMSize.getText().isEmpty()) && !(txtCacheSize.getText().isEmpty())){
+            Cache c = createCache();
+            Memory m = createMemory();
+            if(c.getNumBlocks() >= m.getMMSize()){
+                err = true;
+                // lblError
+                txtMMSize.setStyle("-fx-text-box-border: red;");
+                txtCacheSize.setStyle("-fx-text-box-border: red;");
+            }
+        }
+ */
+        if (err) {
+            btnNextPage.setDisable(true);
+            return false;
+        }
+
+        if (tfValid) {
+            btnNextPage.setDisable(false);
+        }
+        return true;
     }
 
     private Memory createMemory() {
