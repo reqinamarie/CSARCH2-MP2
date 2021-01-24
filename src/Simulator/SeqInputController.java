@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import static java.lang.Integer.parseInt;
 
 public class SeqInputController {
@@ -187,8 +186,8 @@ public class SeqInputController {
         int hits = this.cache.getHits();
         int miss = this.cache.getMiss();
 
-        aveAccessTime = ((hits / (hits + miss)) * this.cache.getAccessTime())
-                + ((miss / (hits + miss)) * getMissPenalty());
+        aveAccessTime = (((float) hits / (hits + miss)) * this.cache.getAccessTime())
+                + (((float) miss / (hits + miss)) * getMissPenalty());
 
         return aveAccessTime;
     }
@@ -212,7 +211,7 @@ public class SeqInputController {
     }
 
     public void inputTypeChanged() {
-        for (GroupController g: gControllers) {
+        for (GroupController g : gControllers) {
             g.setInputType((String) cmbSeqType.getValue());
         }
     }
