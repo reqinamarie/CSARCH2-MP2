@@ -64,9 +64,15 @@ public class Cache {
         return hits;
     }
 
+    public ArrayList<Integer> getContent() {
+        return contents;
+    }
+
     public void fetch(int data) {
 
         System.out.println("New Fetch");
+        System.out.println("Current MRU: " + mru);
+        System.out.println("Num blocks: " + num_blocks);
 
         int index = this.find(data);
 
@@ -89,7 +95,7 @@ public class Cache {
                 }
 
                 else {
-                    setMRU(this.mru++);
+                    setMRU(this.mru + 1);
                 }
 
             }

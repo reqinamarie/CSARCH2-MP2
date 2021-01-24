@@ -105,6 +105,12 @@ public class SequenceController {
                 return null;
         }
 
+        if (!blocks) {
+            for (int num : data) {
+                num = num / blockSize;
+            }
+        }
+
         seq = new Sequence(data, loops);
         return seq;
     }
