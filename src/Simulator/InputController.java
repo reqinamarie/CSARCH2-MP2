@@ -37,7 +37,7 @@ public class InputController {
     public Label lblError;
 
     public Button btnNextPage;
-    public boolean tfValid = false, tempValid = true;
+    public boolean tfValid = false;
 
     @FXML
     public void initialize() {
