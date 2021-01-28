@@ -86,7 +86,7 @@ public class InputController {
                 return;
             }
         }
-
+        lblError.setText("");
         btnNextPage.setDisable(false);
         tfValid = true;
     }
@@ -100,14 +100,14 @@ public class InputController {
                     if (!base2(field))
                         return false;
                 }
-                lblError.setText("");
                 field.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
                 return true;
             }
-            lblError.setText("Invalid input. Please enter a natural number.");
+            lblError.setText("ERROR: Invalid input. Please enter a natural number.");
             field.setStyle("-fx-text-box-border: red;");
             return false;
         } catch (Exception e) {
+            lblError.setText("ERROR: Group repetition must be an integer greater than 0.");
             field.setStyle("-fx-text-box-border: red;");
             return false;
         }
@@ -118,7 +118,7 @@ public class InputController {
         if ((x != 0) && ((x & (x - 1)) == 0))
             return true;
         
-        lblError.setText("Value should be of base 2.");
+        lblError.setText("ERROR: Value should be of base 2.");
         field.setStyle("-fx-text-box-border: red;");
         btnNextPage.setDisable(true);
         return false;
@@ -133,7 +133,7 @@ public class InputController {
             //block size <= mm size
             if (!(txtMMSize.getText().isEmpty()) && cmbMMType.getValue().equals("Words") && bs > parseInt(txtMMSize.getText())){
                 err = true;
-                lblError.setText("Main memory is smaller than block size.");
+                lblError.setText("ERROR: Main memory is smaller than block size.");
                 txtMMSize.setStyle("-fx-text-box-border: red;");
             } else {
                 txtMMSize.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
@@ -142,7 +142,7 @@ public class InputController {
             //block size <= cache size
             if (!(txtCacheSize.getText().isEmpty()) && cmbCacheType.getValue().equals("Words") && bs > parseInt(txtCacheSize.getText())){
                 err = true;
-                lblError.setText("Cache memory is smaller than block size.");
+                lblError.setText("ERROR: Cache memory is smaller than block size.");
                 txtCacheSize.setStyle("-fx-text-box-border: red;");
             } else {
                 txtCacheSize.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
