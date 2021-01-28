@@ -103,11 +103,11 @@ public class InputController {
                 field.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
                 return true;
             }
-            lblError.setText("ERROR: Invalid input. Please enter a natural number.");
+            lblError.setText("ERROR: Value must be an integer greater than 0.");
             field.setStyle("-fx-text-box-border: red;");
             return false;
         } catch (Exception e) {
-            lblError.setText("ERROR: Group repetition must be an integer greater than 0.");
+            lblError.setText("ERROR: Value must be an integer greater than 0.");
             field.setStyle("-fx-text-box-border: red;");
             return false;
         }
@@ -135,8 +135,6 @@ public class InputController {
                 err = true;
                 lblError.setText("ERROR: Main memory is smaller than block size.");
                 txtMMSize.setStyle("-fx-text-box-border: red;");
-            } else {
-                txtMMSize.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
             }
 
             //block size <= cache size
@@ -144,23 +142,9 @@ public class InputController {
                 err = true;
                 lblError.setText("ERROR: Cache memory is smaller than block size.");
                 txtCacheSize.setStyle("-fx-text-box-border: red;");
-            } else {
-                txtCacheSize.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
             }
         }
-/*
-        //cache size should be < mm size
-        if (!(txtMMSize.getText().isEmpty()) && !(txtCacheSize.getText().isEmpty())){
-            Cache c = createCache();
-            Memory m = createMemory();
-            if(c.getNumBlocks() >= m.getMMSize()){
-                err = true;
-                // lblError
-                txtMMSize.setStyle("-fx-text-box-border: red;");
-                txtCacheSize.setStyle("-fx-text-box-border: red;");
-            }
-        }
- */
+
         if (err) {
             btnNextPage.setDisable(true);
             return false;
