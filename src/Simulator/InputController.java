@@ -37,7 +37,7 @@ public class InputController {
     public Label lblError;
 
     public Button btnNextPage;
-    public boolean tfValid = false;
+    public boolean tfValid = false, tempValid = true;
 
     @FXML
     public void initialize() {
@@ -55,7 +55,11 @@ public class InputController {
        tfSizes = Arrays.asList(txtBlockSize, txtMMSize, txtCacheSize);
 
        for (TextField tf: textFields) {
-           tf.textProperty().addListener((obs, oldVal, newVal) -> {isValid(tf, newVal); checkIfEnableNext();});
+           tf.textProperty().addListener((obs, oldVal, newVal) -> {
+               Boolean v1 = isValid(tf, newVal),
+                       v2 = checkIfEnableNext();
+               if (v1 && v2) lblError.setText("");
+           });
        }
     }
 
@@ -77,32 +81,35 @@ public class InputController {
     }
 
     @FXML
-    public void checkIfEnableNext() {
-
+    public boolean checkIfEnableNext() {
+        tfValid = true;
         for (TextField tf: textFields) {
             if (tf.getText().isEmpty() || !isValid(tf, tf.getText())) {
                 btnNextPage.setDisable(true);
                 tfValid = false;
-                return;
             }
         }
+        if (!tfValid)
+            return false;
+
         lblError.setText("");
         btnNextPage.setDisable(false);
         tfValid = true;
+        return true;
     }
 
     private boolean isValid(TextField field, String text) {
         try {
             if (parseInt(text) > 0) {
                 if (tfSizes.contains(field)) {
-                    if (!validateSizes())
+                    if (!validateSizes() || !base2(field)) {
                         return false;
-                    if (!base2(field))
-                        return false;
+                    }
                 }
                 field.setStyle("-fx-text-box-border: lightgray; -fx-focus-color: lightgray;");
                 return true;
             }
+
             lblError.setText("ERROR: Value must be an integer greater than 0.");
             field.setStyle("-fx-text-box-border: red;");
             return false;
