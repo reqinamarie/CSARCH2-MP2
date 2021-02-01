@@ -57,12 +57,12 @@ The user is expected to input the following information to perform the cache sim
     
     <figure class="image">
     <img src="SeqLoop2.png"> 
-    <figcaption>Figure 1: Sample sequence pattern with one loop</figcaption>
+    <center><figcaption>Figure 1: Sample sequence pattern with one loop</figcaption></center>
     </figure>
     
     <figure class="image">
     <img src="SeqLoop1.png">
-    <figcaption>Figure 2: Sample sequence pattern with two loops</figcaption>
+    <center><figcaption>Figure 2: Sample sequence pattern with two loops</figcaption></center>
     </figure>
 
 
@@ -88,29 +88,29 @@ Once the necessary fields have been filled up, the application will display the 
 
 ## **Sample Inputs**
 ### **A. Memory Size in Blocks**
-1. Inputs for the Input Page:
+1. Inputs for the Input Page:  
 <img src="sample_input.png"> 
 
-2. Inputs for the Sequence Page:
+2. Inputs for the Sequence Page:  
 <img src="sample_seq.png"> 
 
 3. Output:  
 <img src="sample_output.png">
 
-4. By clicking the Export Results button, a text file containing the results will be exported. 
+4. By clicking the Export Results button, a text file containing the results will be exported.  
 <img src="sample_result.png">
 
 ### **B. Memory Size in Words**
-1. Inputs for the Input Page:
+1. Inputs for the Input Page:  
 <img src="sample_input2.png"> 
 
-2. Inputs for the Sequence Page:
+2. Inputs for the Sequence Page:  
 <img src="sample_seq2.png"> 
 
 3. Output:  
 <img src="sample_output2.png">
 
-4. Contents of text file: 
+4. Contents of text file:   
 <img src="sample_result2.png">
 
 ## **Authors**
