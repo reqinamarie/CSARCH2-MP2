@@ -15,6 +15,11 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.*;
 
+/*for diaalog box */
+import javafx.scene.control.Dialog;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ButtonBar.ButtonData;
+
 public class OutputController {
     public Label lblCacheHit, lblCacheMiss, lblMissPenalty, lblAvgTime, lblTotalTime;
     public Button btnExport;
@@ -102,9 +107,37 @@ public class OutputController {
             }
             myWriter.close();
             System.out.println("Successfully exported results.");
+            dialog("Successfully exported results to \"results.txt\".");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+            dialog("An error occurred. Could not export results.");
         }
+    }
+
+    public void dialog(String prompt) {
+        //Creating a dialog
+        Dialog<String> dialog = new Dialog<String>();
+        //Setting the title
+        dialog.setTitle("Export Results");
+        ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE);
+        //Setting the content of the dialog
+        dialog.setContentText(prompt);
+        //Adding buttons to the dialog pane
+        dialog.getDialogPane().getButtonTypes().add(type);
+        
+        dialog.showAndWait();
+    /*
+        //Creating a vbox to hold the button and the label
+        HBox pane = new HBox(15);
+        //Setting the space between the nodes of a HBox pane
+        pane.setPadding(new Insets(50, 150, 50, 60));
+        pane.getChildren().addAll(txt, button);
+        //Creating a scene object
+        Scene scene = new Scene(new Group(pane), 595, 250, Color.BEIGE);
+        stage.setTitle("Dialog");
+        stage.setScene(scene);
+        stage.show();
+    */
     }
 }
